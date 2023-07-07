@@ -1,3 +1,9 @@
+//@ts-ignore
+//import gradient from 'gradient-string';
+//@ts-ignore
+import tinygradient from 'tinygradient';
+//@ts-ignore
+// const gradient = require('gradient-string');
 export const consoleStart = () => {
     console.log(`\x1b[0;106m`, 'Running...');
     console.log('\x1b[0m', '');
@@ -21,8 +27,8 @@ export const consoleMiniBuffer = () => {
 export const consoleRed = (value) => {
     console.log('\x1b[0;31m', value);
 };
-export const consolePurple = (value) => {
-    console.log('\x1b[0;32m', value);
+export const consoleOrange = (value) => {
+    console.log('\x1b[38;2;255;100;0m', value);
 };
 export const consoleYellow = (value) => {
     console.log('\x1b[0;33m', value);
@@ -32,6 +38,9 @@ export const consoleGreen = (value) => {
 };
 export const consoleBlue = (value) => {
     console.log('\x1b[0;36m', value);
+};
+export const consolePurple = (value) => {
+    console.log('\x1b[38;2;179;124;255m', value);
 };
 export const consoleWhite = (value) => {
     console.log('\x1b[0m', value);
@@ -45,6 +54,38 @@ export const consoleRedOrGreen = (value) => {
         console.log('\x1b[0;31m', str + ' => ' + eval(value));
     }
 };
+export function test2(input) {
+    // const redToGreen = gradient('red', 'green');
+    // const str = '■'.repeat(48);
+    // // Standard RGB gradient
+    // console.log(redToGreen(str));
+    // // Short HSV gradient: red -> yellow -> green
+    // console.log(redToGreen(str, { interpolation: 'hsv' }));
+    // // Long HSV gradient: red -> magenta -> blue -> cyan -> green
+    // console.log(redToGreen(str, { interpolation: 'hsv', hsvSpin: 'long' }));
+    // using array
+    var gradient = tinygradient(['#ff0000', '#00ff00', '#0000ff']);
+    var colorsHsv = gradient.hsv(9, true);
+    var colorArray = gradient.rgb(input.length);
+    let output = '';
+    for (let i = 0; i < input.length; i++) {
+        var { _r, _g, _b } = colorArray[i];
+        output += `\x1b[38;2;${_r};${_g};${_b}m${input[i]}`;
+    }
+    output += '\x1b[0m'; // reset color
+    console.log('\x1b[0m', output);
+}
+function formatString(input, gradient) {
+    var colorsHsv = gradient.hsv(9, true);
+    var colorArray = gradient.rgb(input.length);
+    let output = '';
+    for (let i = 0; i < input.length; i++) {
+        var { _r, _g, _b } = colorArray[i];
+        output += `\x1b[38;2;${_r};${_g};${_b}m${input[i]}`;
+    }
+    output += '\x1b[0m'; // reset color
+    console.log('\x1b[0m', output);
+}
 function hslToRgb(h, s, l) {
     let r, g, b;
     if (s === 0) {
@@ -85,15 +126,36 @@ export function rainbowConsoleText(text, saturation = 100, lightness = 50, repet
     //return output;
     console.log('\x1b[0m', output);
 }
+export function cursor(frame) {
+    if (frame % 2 === 0) {
+        return '•';
+    }
+    return '◦';
+}
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+function randomUnicode() {
+    let array = ['Ο', 'Φ', 'Δ'];
+    return array[getRandomInt(array.length)];
+}
 function test() {
-    consoleStart();
+    //consoleStart();
+    test2('test string YO');
+    test2('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+    test2('■'.repeat(64));
+    var holder = '■'.repeat(64);
+    formatString(holder, tinygradient(['#0000ff', '#00ffcc']));
+    formatString('■'.repeat(64), tinygradient(['#0000ff', '#ff3399', '#00ffcc']));
+    consoleMiniBuffer();
     rainbowConsoleText(`Let's talk about Javascript primitives! \n`);
-    consoleWhite(`vwhite`);
-    consoleYellow(`yellow`);
-    consoleBuffer();
     consoleRed(`red`);
+    consoleOrange(`orange`);
+    consoleYellow(`yellow`);
     consoleGreen(`green`);
-    consoleGreen(`green`);
+    consoleBlue(`blue`);
+    consolePurple(`purple`);
+    consoleWhite(`white`);
     consoleEnd();
 }
 test();
