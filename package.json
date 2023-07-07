@@ -1,10 +1,10 @@
 {
     "name": "summertime-vlc",
     "description": "Visual Studio Code, Lightweight, Console",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "license": "MIT",
     "author": "Summer T",
-    "main": "index.js",
+    "main": "src/index.js",
     "type": "module",
     "scripts": {
         "run": "tsc -t ES2020 src/index.ts && node src/index.js",
