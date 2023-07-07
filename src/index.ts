@@ -29,8 +29,8 @@ export const consoleRed = (value: string) => {
     console.log('\x1b[0;31m', value);
 };
 
-export const consolePurple = (value: string) => {
-    console.log('\x1b[0;32m', value);
+export const consoleOrange = (value: string) => {
+    console.log('\x1b[38;2;255;100;0m', value);
 };
 
 export const consoleYellow = (value: string) => {
@@ -43,6 +43,10 @@ export const consoleGreen = (value: string) => {
 
 export const consoleBlue = (value: string) => {
     console.log('\x1b[0;36m', value);
+};
+
+export const consolePurple = (value: string) => {
+    console.log('\x1b[38;2;139;88;255m', value);
 };
 
 export const consoleWhite = (value: string) => {
@@ -102,21 +106,77 @@ export function rainbowConsoleText(
     console.log('\x1b[0m', output);
 }
 
+export function cursor(frame: number) {
+    if (frame % 2 === 0) {
+        return '•';
+    }
+    return '◦';
+}
+
+function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+}
+
+function randomUnicode() {
+    let array = ['Ο', 'Φ', 'Δ'];
+    return array[getRandomInt(array.length)];
+}
+
+export function testingCycling(input: string, frame: number = 0) {
+    console.log(
+        cursor(frame) +
+            cursor(frame) +
+            cursor(frame) +
+            cursor(frame) +
+            input +
+            cursor(frame) +
+            cursor(frame) +
+            cursor(frame) +
+            cursor(frame) +
+            '\u001B[' +
+            'F\u001B[G\u001B[2K'
+    );
+
+    setTimeout(() => {
+        frame++;
+        testingCycling(input, frame);
+    }, 1000);
+}
+
+export function testingCycling2(input: string, frame: number = 0) {
+    console.log(
+        randomUnicode() +
+            randomUnicode() +
+            input +
+            randomUnicode() +
+            randomUnicode() +
+            '\u001B[' +
+            'F\u001B[G\u001B[2K'
+    );
+
+    setTimeout(() => {
+        frame++;
+        testingCycling2(input, frame);
+    }, 1000);
+}
+
 function test(): void {
-    consoleStart();
+    //consoleStart();
+
+    testingCycling2('blinks');
+
+    consoleMiniBuffer();
     rainbowConsoleText(`Let's talk about Javascript primitives! \n`);
 
-    consoleWhite(`vwhite`);
+    consoleRed(`red`);
+    consoleOrange(`orange`);
 
     consoleYellow(`yellow`);
 
-    consoleBuffer();
-
-    consoleRed(`red`);
     consoleGreen(`green`);
-
-    consoleGreen(`green`);
-
+    consoleBlue(`blue`);
+    consoleBlue(`purple`);
+    consoleWhite(`white`);
     consoleEnd();
 }
 
