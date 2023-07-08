@@ -83,7 +83,7 @@ function formatString(input, gradient) {
         var { _r, _g, _b } = colorArray[i];
         output += `\x1b[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
     }
-    output += '\x1b[0m'; // reset color
+    output += '\x1b[0m';
     console.log('\x1b[0m', output);
 }
 function hslToRgb(h, s, l) {
@@ -147,6 +147,15 @@ function test() {
     var holder = '■'.repeat(64);
     formatString(holder, tinygradient(['#0000ff', '#00ffcc']));
     formatString('■'.repeat(64), tinygradient(['#0000ff', '#ff3399', '#00ffcc']));
+    formatString(holder, tinygradient(['#0000ff', '#00ffcc', '#0000ff', '#ff3399', '#00ffcc']));
+    formatString(holder, tinygradient([
+        '#c1153d',
+        '#dd901c',
+        '#efe52d',
+        '#5eef2d',
+        '#2750f4',
+        '#2914e5',
+    ]));
     consoleMiniBuffer();
     rainbowConsoleText(`Let's talk about Javascript primitives! \n`);
     consoleRed(`red`);
