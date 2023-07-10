@@ -177,27 +177,27 @@ function randomUnicode() {
 }
 
 function test(): void {
-    //consoleStart();
+    consoleStart();
 
-    test2('test string YO');
+    var loren =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    var holder = '■'.repeat(100);
 
-    test2(
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-    );
+    consoleRed(`red`);
+    consoleOrange(`orange`);
+    consoleYellow(`yellow`);
+    consoleGreen(`green`);
+    consoleBlue(`blue`);
+    consolePurple(`purple`);
+    consoleWhite(`white`);
+    consoleMiniBuffer();
 
-    test2('■'.repeat(64));
-
-    var holder = '■'.repeat(64);
-
-    formatString(holder, tinygradient(['#0000ff', '#00ffcc']));
+    formatString(holder, tinygradient(['#0000ff', '#ff3399', '#00ffcc']));
     formatString(
-        '■'.repeat(64),
+        'Vaporwave : ' + loren,
         tinygradient(['#0000ff', '#ff3399', '#00ffcc'])
     );
-    formatString(
-        holder,
-        tinygradient(['#0000ff', '#00ffcc', '#0000ff', '#ff3399', '#00ffcc'])
-    );
+    consoleMiniBuffer();
 
     formatString(
         holder,
@@ -210,17 +210,84 @@ function test(): void {
             '#2914e5',
         ])
     );
+    formatString(
+        'Soft Rainbow : ' + loren,
+        tinygradient([
+            '#c1153d',
+            '#dd901c',
+            '#efe52d',
+            '#5eef2d',
+            '#2750f4',
+            '#2914e5',
+        ])
+    );
+    consoleMiniBuffer();
+
+    formatString(
+        holder,
+        tinygradient([
+            '#F8F9FA',
+            '#E9ECEF',
+            '#DEE2E6',
+            '#CED4DA',
+            '#ADB5BD',
+            '#6C757D',
+            '#495057',
+            '#343A40',
+            '#212529',
+        ])
+    );
+    formatString(
+        'Old Movie : ' + loren,
+        tinygradient([
+            '#F8F9FA',
+            '#E9ECEF',
+            '#DEE2E6',
+            '#CED4DA',
+            '#ADB5BD',
+            '#6C757D',
+            '#495057',
+            '#343A40',
+            '#212529',
+        ])
+    );
+    consoleMiniBuffer();
+
+    formatString(
+        holder,
+        tinygradient([
+            '#03071E',
+            '#370617',
+            '#6A040F',
+            '#9D0208',
+            '#D00000',
+            '#DC2F02',
+            '#E85D04',
+            '#F48C06',
+            '#FAA307',
+        ])
+    );
+
+    formatString(
+        'Firewood : ' + loren,
+        tinygradient([
+            '#03071E',
+            '#370617',
+            '#6A040F',
+            '#9D0208',
+            '#D00000',
+            '#DC2F02',
+            '#E85D04',
+            '#F48C06',
+            '#FAA307',
+            //'#FFBA08',
+        ])
+    );
 
     consoleMiniBuffer();
-    rainbowConsoleText(`Let's talk about Javascript primitives! \n`);
+    rainbowConsoleText(holder);
+    rainbowConsoleText('Lisa Frank : ' + loren);
 
-    consoleRed(`red`);
-    consoleOrange(`orange`);
-    consoleYellow(`yellow`);
-    consoleGreen(`green`);
-    consoleBlue(`blue`);
-    consolePurple(`purple`);
-    consoleWhite(`white`);
     consoleEnd();
 }
 
