@@ -1,9 +1,7 @@
 //@ts-ignore
 //import gradient from 'gradient-string';
-
 //@ts-ignore
 import tinygradient from 'tinygradient';
-
 //@ts-ignore
 // const gradient = require('gradient-string');
 
@@ -72,37 +70,7 @@ export const consoleRedOrGreen = (value: any) => {
     }
 };
 
-export function test2(input: string) {
-    // const redToGreen = gradient('red', 'green');
-    // const str = '■'.repeat(48);
-
-    // // Standard RGB gradient
-    // console.log(redToGreen(str));
-
-    // // Short HSV gradient: red -> yellow -> green
-    // console.log(redToGreen(str, { interpolation: 'hsv' }));
-
-    // // Long HSV gradient: red -> magenta -> blue -> cyan -> green
-    // console.log(redToGreen(str, { interpolation: 'hsv', hsvSpin: 'long' }));
-
-    // using array
-    var gradient = tinygradient(['#ff0000', '#00ff00', '#0000ff']);
-    var colorsHsv = gradient.hsv(9, true);
-    var colorArray = gradient.rgb(input.length);
-
-    let output = '';
-
-    for (let i = 0; i < input.length; i++) {
-        var { _r, _g, _b } = colorArray[i];
-        output += `\x1b[38;2;${_r};${_g};${_b}m${input[i]}`;
-    }
-    output += '\x1b[0m'; // reset color
-
-    console.log('\x1b[0m', output);
-}
-
 function formatString(input: string, gradient: tinygradient) {
-    var colorsHsv = gradient.hsv(9, true);
     var colorArray = gradient.rgb(input.length);
 
     let output = '';
@@ -289,6 +257,55 @@ function test(): void {
     rainbowConsoleText('Lisa Frank : ' + loren);
 
     consoleEnd();
+
+    var rainbow = new CConsole(
+        tinygradient([
+            '#03071E',
+            '#370617',
+            '#6A040F',
+            '#9D0208',
+            '#D00000',
+            '#DC2F02',
+            '#E85D04',
+            '#F48C06',
+            '#FAA307',
+        ])
+    );
+
+    rainbow.log('test output from class');
+    rainbow.buffer();
+}
+
+export class CConsole {
+    gradient: tinygradient;
+
+    constructor(gradientInput: tinygradient) {
+        this.gradient = gradientInput;
+    }
+
+    log(inputString) {
+        console.log('\x1b[0m', formatString(inputString, this.gradient));
+    }
+
+    buffer() {
+        var holder = '■'.repeat(100);
+        console.log('\x1b[0m', formatString(holder, this.gradient));
+    }
+
+    formatString(input: string, gradient: tinygradient) {
+        var colorArray = gradient.rgb(input.length);
+
+        let output = '';
+
+        for (let i = 0; i < input.length; i++) {
+            var { _r, _g, _b } = colorArray[i];
+            output += `\x1b[38;2;${Math.round(_r)};${Math.round(
+                _g
+            )};${Math.round(_b)}m${input[i]}`;
+        }
+        output += '\x1b[0m';
+        return output;
+    }
 }
 
 test();
