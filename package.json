@@ -1,5 +1,5 @@
 {
-    "name": "summertime-vlc",
+    "name": "chroma-console",
     "description": "Visual Studio Code, Lightweight, Console",
     "version": "1.0.2",
     "license": "MIT",
@@ -27,3 +27,4 @@
         "tinygradient": "^1.1.5"
     }
 }
+
