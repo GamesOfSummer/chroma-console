@@ -54,36 +54,14 @@ export const consoleRedOrGreen = (value) => {
         console.log('\x1b[0;31m', str + ' => ' + eval(value));
     }
 };
-export function test2(input) {
-    // const redToGreen = gradient('red', 'green');
-    // const str = '■'.repeat(48);
-    // // Standard RGB gradient
-    // console.log(redToGreen(str));
-    // // Short HSV gradient: red -> yellow -> green
-    // console.log(redToGreen(str, { interpolation: 'hsv' }));
-    // // Long HSV gradient: red -> magenta -> blue -> cyan -> green
-    // console.log(redToGreen(str, { interpolation: 'hsv', hsvSpin: 'long' }));
-    // using array
-    var gradient = tinygradient(['#ff0000', '#00ff00', '#0000ff']);
-    var colorsHsv = gradient.hsv(9, true);
-    var colorArray = gradient.rgb(input.length);
-    let output = '';
-    for (let i = 0; i < input.length; i++) {
-        var { _r, _g, _b } = colorArray[i];
-        output += `\x1b[38;2;${_r};${_g};${_b}m${input[i]}`;
-    }
-    output += '\x1b[0m'; // reset color
-    console.log('\x1b[0m', output);
-}
 function formatString(input, gradient) {
-    var colorsHsv = gradient.hsv(9, true);
     var colorArray = gradient.rgb(input.length);
     let output = '';
     for (let i = 0; i < input.length; i++) {
         var { _r, _g, _b } = colorArray[i];
-        output += `\x1b[38;2;${_r};${_g};${_b}m${input[i]}`;
+        output += `\x1b[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
     }
-    output += '\x1b[0m'; // reset color
+    output += '\x1b[0m';
     console.log('\x1b[0m', output);
 }
 function hslToRgb(h, s, l) {
@@ -140,15 +118,11 @@ function randomUnicode() {
     return array[getRandomInt(array.length)];
 }
 function test() {
-    //consoleStart();
-    test2('test string YO');
-    test2('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
-    test2('■'.repeat(64));
-    var holder = '■'.repeat(64);
-    formatString(holder, tinygradient(['#0000ff', '#00ffcc']));
-    formatString('■'.repeat(64), tinygradient(['#0000ff', '#ff3399', '#00ffcc']));
-    consoleMiniBuffer();
-    rainbowConsoleText(`Let's talk about Javascript primitives! \n`);
+    consoleStart();
+    //rainbowConsoleText(holder);
+    //rainbowConsoleText('Lisa Frank : ' + loren);
+    var loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    var holder = '■'.repeat(100);
     consoleRed(`red`);
     consoleOrange(`orange`);
     consoleYellow(`yellow`);
@@ -156,7 +130,87 @@ function test() {
     consoleBlue(`blue`);
     consolePurple(`purple`);
     consoleWhite(`white`);
+    consoleMiniBuffer();
     consoleEnd();
+    var rainbow = new CConsole(tinygradient([
+        '#03071E',
+        '#370617',
+        '#6A040F',
+        '#9D0208',
+        '#D00000',
+        '#DC2F02',
+        '#E85D04',
+        '#F48C06',
+        '#FAA307',
+    ]));
+    rainbow.log('test output from class');
+    rainbow.buffer();
+    var rainbow2 = new CConsole();
+    rainbow2.log('test output from class');
+    rainbow2.buffer();
+}
+export class CConsole {
+    constructor(gradientInput) {
+        this.gradientShorthands = {
+            atlas: ['#feac5e', '#c779d0', '#4bc0c8'],
+            vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
+            softrainbow: [
+                '#c1153d',
+                '#dd901c',
+                '#efe52d',
+                '#5eef2d',
+                '#2750f4',
+                '#2914e5',
+            ],
+            oldmovie: [
+                '#F8F9FA',
+                '#E9ECEF',
+                '#DEE2E6',
+                '#CED4DA',
+                '#ADB5BD',
+                '#6C757D',
+                '#495057',
+                '#343A40',
+                '#212529',
+            ],
+            firewood: [
+                '#03071E',
+                '#370617',
+                '#6A040F',
+                '#9D0208',
+                '#D00000',
+                '#DC2F02',
+                '#E85D04',
+                '#F48C06',
+                '#FAA307',
+            ],
+        };
+        this.gradient = this.gradientShorthands.atlas;
+        this.gradient = gradientInput;
+    }
+    log(inputString) {
+        console.log('\x1b[0m', formatString(inputString, this.gradient));
+    }
+    buffer() {
+        var holder = '■'.repeat(100);
+        console.log('\x1b[0m', formatString(holder, this.gradient));
+    }
+    formatString(input, gradient) {
+        if (!!input === false) {
+            return;
+        }
+        if (!!gradient === false) {
+            gradient = tinygradient(this.gradientShorthands.softrainbow);
+        }
+        var colorArray = gradient.rgb(input.length);
+        let output = '';
+        for (let i = 0; i < input.length; i++) {
+            var { _r, _g, _b } = colorArray[i];
+            output += `\x1b[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
+        }
+        output += '\x1b[0m';
+        return output;
+    }
 }
 test();
 //# sourceMappingURL=index.js.map

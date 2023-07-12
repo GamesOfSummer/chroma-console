@@ -54,16 +54,6 @@ export const consoleRedOrGreen = (value) => {
         console.log('\x1b[0;31m', str + ' => ' + eval(value));
     }
 };
-function formatString(input, gradient) {
-    var colorArray = gradient.rgb(input.length);
-    let output = '';
-    for (let i = 0; i < input.length; i++) {
-        var { _r, _g, _b } = colorArray[i];
-        output += `\x1b[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
-    }
-    output += '\x1b[0m';
-    console.log('\x1b[0m', output);
-}
 function hslToRgb(h, s, l) {
     let r, g, b;
     if (s === 0) {
@@ -119,6 +109,8 @@ function randomUnicode() {
 }
 function test() {
     consoleStart();
+    //rainbowConsoleText(holder);
+    //rainbowConsoleText('Lisa Frank : ' + loren);
     var loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
     var holder = '■'.repeat(100);
     consoleRed(`red`);
@@ -129,102 +121,76 @@ function test() {
     consolePurple(`purple`);
     consoleWhite(`white`);
     consoleMiniBuffer();
-    formatString(holder, tinygradient(['#0000ff', '#ff3399', '#00ffcc']));
-    formatString('Vaporwave : ' + loren, tinygradient(['#0000ff', '#ff3399', '#00ffcc']));
-    consoleMiniBuffer();
-    formatString(holder, tinygradient([
-        '#c1153d',
-        '#dd901c',
-        '#efe52d',
-        '#5eef2d',
-        '#2750f4',
-        '#2914e5',
-    ]));
-    formatString('Soft Rainbow : ' + loren, tinygradient([
-        '#c1153d',
-        '#dd901c',
-        '#efe52d',
-        '#5eef2d',
-        '#2750f4',
-        '#2914e5',
-    ]));
-    consoleMiniBuffer();
-    formatString(holder, tinygradient([
-        '#F8F9FA',
-        '#E9ECEF',
-        '#DEE2E6',
-        '#CED4DA',
-        '#ADB5BD',
-        '#6C757D',
-        '#495057',
-        '#343A40',
-        '#212529',
-    ]));
-    formatString('Old Movie : ' + loren, tinygradient([
-        '#F8F9FA',
-        '#E9ECEF',
-        '#DEE2E6',
-        '#CED4DA',
-        '#ADB5BD',
-        '#6C757D',
-        '#495057',
-        '#343A40',
-        '#212529',
-    ]));
-    consoleMiniBuffer();
-    formatString(holder, tinygradient([
-        '#03071E',
-        '#370617',
-        '#6A040F',
-        '#9D0208',
-        '#D00000',
-        '#DC2F02',
-        '#E85D04',
-        '#F48C06',
-        '#FAA307',
-    ]));
-    formatString('Firewood : ' + loren, tinygradient([
-        '#03071E',
-        '#370617',
-        '#6A040F',
-        '#9D0208',
-        '#D00000',
-        '#DC2F02',
-        '#E85D04',
-        '#F48C06',
-        '#FAA307',
-        //'#FFBA08',
-    ]));
-    consoleMiniBuffer();
-    rainbowConsoleText(holder);
-    rainbowConsoleText('Lisa Frank : ' + loren);
     consoleEnd();
     var rainbow = new CConsole(tinygradient([
-        '#03071E',
-        '#370617',
-        '#6A040F',
-        '#9D0208',
-        '#D00000',
-        '#DC2F02',
-        '#E85D04',
-        '#F48C06',
-        '#FAA307',
+        '#c1153d',
+        '#dd901c',
+        '#efe52d',
+        '#5eef2d',
+        '#2750f4',
+        '#2914e5',
     ]));
     rainbow.log('test output from class');
+    rainbow.log(loren);
     rainbow.buffer();
+    var rainbow2 = new CConsole();
+    rainbow2.log('test output from class');
+    rainbow2.log(loren);
+    rainbow2.buffer();
 }
 export class CConsole {
     constructor(gradientInput) {
+        this.gradientShorthands = {
+            atlas: ['#feac5e', '#c779d0', '#4bc0c8'],
+            vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
+            softrainbow: [
+                '#c1153d',
+                '#dd901c',
+                '#efe52d',
+                '#5eef2d',
+                '#2750f4',
+                '#2914e5',
+            ],
+            oldmovie: [
+                '#F8F9FA',
+                '#E9ECEF',
+                '#DEE2E6',
+                '#CED4DA',
+                '#ADB5BD',
+                '#6C757D',
+                '#495057',
+                '#343A40',
+                '#212529',
+            ],
+            firewood: [
+                '#03071E',
+                '#370617',
+                '#6A040F',
+                '#9D0208',
+                '#D00000',
+                '#DC2F02',
+                '#E85D04',
+                '#F48C06',
+                '#FAA307',
+            ],
+        };
+        this.gradient = this.gradientShorthands.atlas;
         this.gradient = gradientInput;
     }
     log(inputString) {
-        console.log('\x1b[0m', formatString(inputString, this.gradient));
+        console.log('\x1b[0m', this.formatString(inputString, this.gradient));
     }
     buffer() {
         var holder = '■'.repeat(100);
-        console.log('\x1b[0m', formatString(holder, this.gradient));
+        console.log('\x1b[0m', this.formatString(holder, this.gradient));
     }
     formatString(input, gradient) {
+        if (!!input === false) {
+            return;
+        }
+        if (!!gradient === false) {
+            gradient = tinygradient(this.gradientShorthands.oldmovie);
+        }
         var colorArray = gradient.rgb(input.length);
         let output = '';
         for (let i = 0; i < input.length; i++) {
