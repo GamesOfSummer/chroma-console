@@ -16,19 +16,65 @@ function test() {
     // rainbow.log('t');
     // rainbow.log('rainbow test string');
     // rainbow.buffer();
-    var rainbow2 = new ChromaConsole();
-    rainbow2.consoleStart();
-    rainbow2.consoleEnd();
-    rainbow2.log('t');
-    rainbow2.log('test string');
-    rainbow2.log(loren);
-    rainbow2.buffer();
-    rainbow2.consoleRed('red only');
-    rainbow2.consoleOrange('orange only');
-    rainbow2.consoleYellow('yellow only');
+    var chroma = new ChromaConsole('vaporwave');
+    chroma.consoleStart();
+    chroma.consoleEnd();
+    chroma.log('t');
+    chroma.log('test string');
+    chroma.log(loren);
+    chroma.buffer();
+    chroma.consoleRed('red only');
+    chroma.consoleOrange('orange only');
+    chroma.consoleYellow('yellow only');
+    chroma.consoleGreen('green only');
+    chroma.consoleBlue('blue only');
+    chroma.consolePurple('purple only');
+    chroma.consoleWhite('white only');
 }
 export class ChromaConsole {
-    constructor(gradientInput) {
+    constructor(keyword) {
+        this.consoleRed = (value) => {
+            console.log('\x1b[0;31m', value);
+        };
+        this.consoleOrange = (value) => {
+            console.log('\x1b[38;2;255;100;0m', value);
+        };
+        this.consoleYellow = (value) => {
+            console.log('\x1b[0;33m', value);
+        };
+        this.consoleGreen = (value) => {
+            console.log('\x1b[0;32m', value);
+        };
+        this.consoleBlue = (value) => {
+            console.log('\x1b[0;36m', value);
+        };
+        this.consolePurple = (value) => {
+            console.log('\x1b[38;2;179;124;255m', value);
+        };
+        this.consoleWhite = (value) => {
+            console.log('\x1b[0m', value);
+        };
+        this.consoleRedOrGreen = (value) => {
+            let str = value.replace('!', '').replace('!', '') + '';
+            if (eval(value)) {
+                console.log('\x1b[0;32m', str + ' => ' + eval(value));
+            }
+            else {
+                console.log('\x1b[0;31m', str + ' => ' + eval(value));
+            }
+        };
+        this.consoleStart = () => {
+            console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+            console.log('\x1b[0m', this.formatString('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)));
+            console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+            console.log('');
+        };
+        this.consoleEnd = () => {
+            console.log('');
+            console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+            console.log('\x1b[0m', this.formatString('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)));
+            console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+        };
         this.gradientShorthands = {
             vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
             softrainbow: [
@@ -62,73 +108,38 @@ export class ChromaConsole {
                 '#FAA307',
             ],
         };
-        this.consoleRed = (value) => {
-            console.log('\x1b[0;31m', value);
-        };
-        this.consoleOrange = (value) => {
-            console.log('\x1b[38;2;255;100;0m', value);
-        };
-        this.consoleYellow = (value) => {
-            console.log('\x1b[0;33m', value);
-        };
-        this.consoleGreen = (value) => {
-            console.log('\x1b[0;32m', value);
-        };
-        this.consoleBlue = (value) => {
-            console.log('\x1b[0;36m', value);
-        };
-        this.consolePurple = (value) => {
-            console.log('\x1b[38;2;179;124;255m', value);
-        };
-        this.consoleWhite = (value) => {
-            console.log('\x1b[0m', value);
-        };
-        this.consoleRedOrGreen = (value) => {
-            let str = value.replace('!', '').replace('!', '') + '';
-            if (eval(value)) {
-                console.log('\x1b[0;32m', str + ' => ' + eval(value));
-            }
-            else {
-                console.log('\x1b[0;31m', str + ' => ' + eval(value));
-            }
-        };
-        this.consoleStart = () => {
-            console.log('\x1b[0m', this.formatString('■▣'.repeat(50), this.gradientShorthands.softrainbow));
-            console.log('\x1b[0m', this.formatString('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22), this.gradientShorthands.softrainbow));
-            console.log('\x1b[0m', this.formatString('■▣'.repeat(50), this.gradientShorthands.softrainbow));
-            console.log('');
-        };
-        this.consoleEnd = () => {
-            console.log('');
-            console.log('\x1b[0m', this.formatString('■▣'.repeat(50), this.gradientShorthands.softrainbow));
-            console.log('\x1b[0m', this.formatString('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22), this.gradientShorthands.softrainbow));
-            console.log('\x1b[0m', this.formatString('■▣'.repeat(50), this.gradientShorthands.softrainbow));
-        };
-        this.gradient = gradientInput;
+        if (keyword) {
+            var gradient = Object.fromEntries(Object.entries(this.gradientShorthands).filter(([key]) => key.includes(keyword)));
+            var holder = Object.values(gradient);
+            this.gradient = tinygradient(holder[0]);
+        }
+        else {
+            this.gradient = tinygradient(this.gradientShorthands.softrainbow);
+        }
     }
     log(inputString) {
-        console.log('\x1b[0m', this.formatString(inputString, this.gradient));
+        console.log('\x1b[0m', this.formatString(inputString));
     }
     buffer() {
         var holder = '■▣'.repeat(50);
-        console.log('\x1b[0m', this.formatString(holder, this.gradient));
+        console.log('\x1b[0m', this.formatString(holder));
     }
-    formatString(input, gradient) {
-        if (!gradient || !gradient.stops) {
-            gradient = tinygradient(this.gradientShorthands.softrainbow);
+    formatString(input) {
+        if (!this.gradient) {
+            this.gradient = tinygradient(this.gradientShorthands.softrainbow);
         }
         if (!!input === false) {
             return;
         }
-        else if (input.length < gradient.stops.length) {
-            gradient.stops = [gradient.stops[0], gradient.stops[1]];
+        else if (input.length < this.gradient.stops.length) {
+            this.gradient.stops = [
+                this.gradient.stops[0],
+                this.gradient.stops[1],
+            ];
             return input;
         }
         else {
-            if (!!gradient === false) {
-                gradient = tinygradient(this.gradientShorthands.softrainbow);
-            }
-            var colorArray = gradient.rgb(input.length);
+            var colorArray = this.gradient.rgb(input.length);
             let output = '';
             for (let i = 0; i < input.length; i++) {
                 var { _r, _g, _b } = colorArray[i];

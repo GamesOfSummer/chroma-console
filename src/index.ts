@@ -21,84 +21,65 @@ function test(): void {
     // rainbow.log('rainbow test string');
     // rainbow.buffer();
 
-    var rainbow2 = new ChromaConsole();
-    rainbow2.consoleStart();
-    rainbow2.consoleEnd();
-    rainbow2.log('t');
-    rainbow2.log('test string');
-    rainbow2.log(loren);
-    rainbow2.buffer();
-    rainbow2.consoleRed('red only');
-    rainbow2.consoleOrange('orange only');
-    rainbow2.consoleYellow('yellow only');
+    var chroma = new ChromaConsole('vaporwave');
+    chroma.consoleStart();
+    chroma.consoleEnd();
+    chroma.log('t');
+    chroma.log('test string');
+    chroma.log(loren);
+    chroma.buffer();
+    chroma.consoleRed('red only');
+    chroma.consoleOrange('orange only');
+    chroma.consoleYellow('yellow only');
+    chroma.consoleGreen('green only');
+    chroma.consoleBlue('blue only');
+    chroma.consolePurple('purple only');
+    chroma.consoleWhite('white only');
 }
 
 export class ChromaConsole {
-    gradientShorthands = {
-        vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
-        softrainbow: [
-            '#c1153d',
-            '#dd901c',
-            '#efe52d',
-            '#5eef2d',
-            '#2750f4',
-            '#2914e5',
-        ],
-        oldmovie: [
-            '#F8F9FA',
-            '#E9ECEF',
-            '#DEE2E6',
-            '#CED4DA',
-            '#ADB5BD',
-            '#6C757D',
-            '#495057',
-            '#343A40',
-            '#212529',
-        ],
-        firewood: [
-            '#03071E',
-            '#370617',
-            '#6A040F',
-            '#9D0208',
-            '#D00000',
-            '#DC2F02',
-            '#E85D04',
-            '#F48C06',
-            '#FAA307',
-        ],
-    };
-
     gradient: tinygradient;
+    keyword: string;
 
-    constructor(gradientInput?: tinygradient) {
-        this.gradient = gradientInput;
+    constructor(keyword?: string) {
+        if (keyword) {
+            var gradient = Object.fromEntries(
+                Object.entries(this.gradientShorthands).filter(([key]) =>
+                    key.includes(keyword)
+                )
+            );
+
+            var holder = Object.values(gradient);
+            this.gradient = tinygradient(holder[0]);
+        } else {
+            this.gradient = tinygradient(this.gradientShorthands.softrainbow);
+        }
     }
 
     log(inputString: string) {
-        console.log('\x1b[0m', this.formatString(inputString, this.gradient));
+        console.log('\x1b[0m', this.formatString(inputString));
     }
 
     buffer() {
         var holder = '■▣'.repeat(50);
-        console.log('\x1b[0m', this.formatString(holder, this.gradient));
+        console.log('\x1b[0m', this.formatString(holder));
     }
 
-    formatString(input: string, gradient: tinygradient) {
-        if (!gradient || !gradient.stops) {
-            gradient = tinygradient(this.gradientShorthands.softrainbow);
+    formatString(input: string) {
+        if (!this.gradient) {
+            this.gradient = tinygradient(this.gradientShorthands.softrainbow);
         }
 
         if (!!input === false) {
             return;
-        } else if (input.length < gradient.stops.length) {
-            gradient.stops = [gradient.stops[0], gradient.stops[1]];
+        } else if (input.length < this.gradient.stops.length) {
+            this.gradient.stops = [
+                this.gradient.stops[0],
+                this.gradient.stops[1],
+            ];
             return input;
         } else {
-            if (!!gradient === false) {
-                gradient = tinygradient(this.gradientShorthands.softrainbow);
-            }
-
-            var colorArray = gradient.rgb(input.length);
+            var colorArray = this.gradient.rgb(input.length);
 
             let output = '';
 
@@ -152,56 +133,64 @@ export class ChromaConsole {
     };
 
     consoleStart = () => {
+        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
         console.log(
             '\x1b[0m',
             this.formatString(
-                '■▣'.repeat(50),
-                this.gradientShorthands.softrainbow
-            )
-        );
-        console.log(
-            '\x1b[0m',
-            this.formatString(
-                '■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22),
-                this.gradientShorthands.softrainbow
+                '■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)
             )
         );
 
-        console.log(
-            '\x1b[0m',
-            this.formatString(
-                '■▣'.repeat(50),
-                this.gradientShorthands.softrainbow
-            )
-        );
+        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
 
         console.log('');
     };
 
     consoleEnd = () => {
         console.log('');
+        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
         console.log(
             '\x1b[0m',
             this.formatString(
-                '■▣'.repeat(50),
-                this.gradientShorthands.softrainbow
-            )
-        );
-        console.log(
-            '\x1b[0m',
-            this.formatString(
-                '■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22),
-                this.gradientShorthands.softrainbow
+                '■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)
             )
         );
 
-        console.log(
-            '\x1b[0m',
-            this.formatString(
-                '■▣'.repeat(50),
-                this.gradientShorthands.softrainbow
-            )
-        );
+        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+    };
+
+    gradientShorthands = {
+        vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
+        softrainbow: [
+            '#c1153d',
+            '#dd901c',
+            '#efe52d',
+            '#5eef2d',
+            '#2750f4',
+            '#2914e5',
+        ],
+        oldmovie: [
+            '#F8F9FA',
+            '#E9ECEF',
+            '#DEE2E6',
+            '#CED4DA',
+            '#ADB5BD',
+            '#6C757D',
+            '#495057',
+            '#343A40',
+            '#212529',
+        ],
+        firewood: [
+            '#03071E',
+            '#370617',
+            '#6A040F',
+            '#9D0208',
+            '#D00000',
+            '#DC2F02',
+            '#E85D04',
+            '#F48C06',
+            '#FAA307',
+        ],
     };
 }
 
