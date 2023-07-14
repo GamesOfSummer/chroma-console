@@ -1,7 +1,7 @@
 {
     "name": "chroma-console",
     "description": "Visual Studio Code, Lightweight, Console",
-    "version": "1.0.2",
+    "version": "1.0.4",
     "license": "MIT",
     "author": "Summer T",
     "main": "src/index.js",

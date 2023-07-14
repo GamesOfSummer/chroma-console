@@ -193,5 +193,3 @@ export class ChromaConsole {
         ],
     };
 }
-
-test();
