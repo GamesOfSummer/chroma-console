@@ -1,85 +1,49 @@
 //@ts-ignore
 import tinygradient from 'tinygradient';
 
-function test(): void {
-    var loren =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-    var holder = '■'.repeat(100);
-
-    // var rainbow = new ChromaConsole(
-    //     tinygradient([
-    //         '#c1153d',
-    //         '#dd901c',
-    //         '#efe52d',
-    //         '#5eef2d',
-    //         '#2750f4',
-    //         '#2914e5',
-    //     ])
-    // );
-
-    // rainbow.log('t');
-    // rainbow.log('rainbow test string');
-    // rainbow.buffer();
-
-    var chroma = new ChromaConsole('vaporwave');
-    chroma.consoleStart();
-    chroma.consoleEnd();
-    chroma.log('t');
-    chroma.log('test string');
-    chroma.log(loren);
-    chroma.buffer();
-    chroma.consoleRed('red only');
-    chroma.consoleOrange('orange only');
-    chroma.consoleYellow('yellow only');
-    chroma.consoleGreen('green only');
-    chroma.consoleBlue('blue only');
-    chroma.consolePurple('purple only');
-    chroma.consoleWhite('white only');
-}
-
 export class ChromaConsole {
-    gradient: tinygradient;
+    static gradient: tinygradient;
     keyword: string;
 
     constructor(keyword?: string) {
         if (keyword) {
-            var gradient = Object.fromEntries(
-                Object.entries(this.gradientShorthands).filter(([key]) =>
+            const gradient = Object.fromEntries(
+                Object.entries(ChromaConsole.gradientShorthands).filter(([key]) =>
                     key.includes(keyword)
                 )
             );
 
-            var holder = Object.values(gradient);
-            this.gradient = tinygradient(holder[0]);
+            const holder = Object.values(gradient);
+            ChromaConsole.gradient = tinygradient(holder[0]);
         } else {
-            this.gradient = tinygradient(this.gradientShorthands.softrainbow);
+            ChromaConsole.gradient = tinygradient(ChromaConsole.gradientShorthands.softrainbow);
         }
     }
 
-    log(inputString: string) {
+    static log(inputString: string) {
         console.log('\x1b[0m', this.formatString(inputString));
     }
 
     buffer() {
-        var holder = '■▣'.repeat(50);
-        console.log('\x1b[0m', this.formatString(holder));
+        const holder = '■▣'.repeat(50);
+        console.log('\x1b[0m', ChromaConsole.formatString(holder));
     }
 
-    formatString(input: string) {
-        if (!this.gradient) {
-            this.gradient = tinygradient(this.gradientShorthands.softrainbow);
+    static formatString(input: string) {
+        if (!ChromaConsole.gradient) {
+            ChromaConsole.gradient = tinygradient(this.gradientShorthands.softrainbow);
         }
 
         if (!!input === false) {
             return;
-        } else if (input.length < this.gradient.stops.length) {
-            this.gradient.stops = [
-                this.gradient.stops[0],
-                this.gradient.stops[1],
+        } else if (input.length < ChromaConsole.gradient.stops.length) {
+            ChromaConsole.gradient.stops = [
+                ChromaConsole.gradient.stops[0],
+                ChromaConsole.gradient.stops[1],
             ];
             return input;
         } else {
-            var colorArray = this.gradient.rgb(input.length);
+            var colorArray = ChromaConsole.gradient.rgb(input.length);
 
             let output = '';
 
@@ -132,34 +96,34 @@ export class ChromaConsole {
         }
     };
 
-    consoleStart = () => {
-        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+    static consoleStart = () => {
+        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
         console.log(
             '\x1b[0m',
-            this.formatString(
+            ChromaConsole.formatString(
                 '■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)
             )
         );
 
-        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
 
         console.log('');
     };
 
-    consoleEnd = () => {
+    static consoleEnd = () => {
         console.log('');
-        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
         console.log(
             '\x1b[0m',
-            this.formatString(
+            ChromaConsole.formatString(
                 '■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)
             )
         );
 
-        console.log('\x1b[0m', this.formatString('■▣'.repeat(50)));
+        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
     };
 
-    gradientShorthands = {
+    static gradientShorthands = {
         vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
         softrainbow: [
             '#c1153d',
@@ -193,3 +157,24 @@ export class ChromaConsole {
         ],
     };
 }
+
+
+
+function test(): void {
+    var loren =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    var holder = '■'.repeat(100);
+
+    //var chroma = new ChromaConsole('vaporwave');
+    //chroma.consoleStart();
+    //chroma.consoleEnd();
+  
+
+    ChromaConsole.log('test');
+    ChromaConsole.log(loren);
+    ChromaConsole.consoleStart();
+    ChromaConsole.consoleEnd();
+}
+
+test();
+
