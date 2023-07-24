@@ -32,6 +32,9 @@ export class ChromaConsole {
                 console.log('\x1b[0;31m', str + ' => ' + eval(value));
             }
         };
+        ChromaConsole.setColor(keyword);
+    }
+    static setColor(keyword) {
         if (keyword) {
             const gradient = Object.fromEntries(Object.entries(ChromaConsole.gradientShorthands).filter(([key]) => key.includes(keyword)));
             const holder = Object.values(gradient);
@@ -56,10 +59,11 @@ export class ChromaConsole {
             return;
         }
         else if (input.length < ChromaConsole.gradient.stops.length) {
-            ChromaConsole.gradient.stops = [
-                ChromaConsole.gradient.stops[0],
-                ChromaConsole.gradient.stops[1],
-            ];
+            // TODO - redo this logic, it sets the gradient permanently right now
+            // ChromaConsole.gradient.stops = [
+            //     ChromaConsole.gradient.stops[0],
+            //     ChromaConsole.gradient.stops[1],
+            // ];
             return input;
         }
         else {
@@ -125,9 +129,12 @@ function test() {
     //var chroma = new ChromaConsole('vaporwave');
     //chroma.consoleStart();
     //chroma.consoleEnd();
+    ChromaConsole.log('');
     ChromaConsole.log('test');
     ChromaConsole.log(loren);
     ChromaConsole.consoleStart();
     ChromaConsole.consoleEnd();
+    ChromaConsole.setColor('oldmovie');
+    ChromaConsole.log(loren);
 }
 test();

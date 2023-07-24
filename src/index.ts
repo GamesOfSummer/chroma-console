@@ -6,6 +6,11 @@ export class ChromaConsole {
     keyword: string;
 
     constructor(keyword?: string) {
+        ChromaConsole.setColor(keyword);
+    }
+
+    static setColor(keyword:string)
+    {
         if (keyword) {
             const gradient = Object.fromEntries(
                 Object.entries(ChromaConsole.gradientShorthands).filter(([key]) =>
@@ -37,10 +42,12 @@ export class ChromaConsole {
         if (!!input === false) {
             return;
         } else if (input.length < ChromaConsole.gradient.stops.length) {
-            ChromaConsole.gradient.stops = [
-                ChromaConsole.gradient.stops[0],
-                ChromaConsole.gradient.stops[1],
-            ];
+
+            // TODO - redo this logic, it sets the gradient permanently right now
+            // ChromaConsole.gradient.stops = [
+            //     ChromaConsole.gradient.stops[0],
+            //     ChromaConsole.gradient.stops[1],
+            // ];
             return input;
         } else {
             var colorArray = ChromaConsole.gradient.rgb(input.length);
@@ -169,11 +176,14 @@ function test(): void {
     //chroma.consoleStart();
     //chroma.consoleEnd();
   
-
+    ChromaConsole.log('');
     ChromaConsole.log('test');
     ChromaConsole.log(loren);
     ChromaConsole.consoleStart();
     ChromaConsole.consoleEnd();
+
+    ChromaConsole.setColor('oldmovie');
+    ChromaConsole.log(loren);
 }
 
 test();

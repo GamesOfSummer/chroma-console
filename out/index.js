@@ -32,21 +32,9 @@ export class ChromaConsole {
                 console.log('\x1b[0;31m', str + ' => ' + eval(value));
             }
         };
-        this.consoleStart = () => {
-            console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
-            console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)));
-            console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
-            console.log('');
-        };
-        this.consoleEnd = () => {
-            console.log('');
-            console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
-            console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)));
-            console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
-        };
         if (keyword) {
-            var gradient = Object.fromEntries(Object.entries(ChromaConsole.gradientShorthands).filter(([key]) => key.includes(keyword)));
-            var holder = Object.values(gradient);
+            const gradient = Object.fromEntries(Object.entries(ChromaConsole.gradientShorthands).filter(([key]) => key.includes(keyword)));
+            const holder = Object.values(gradient);
             ChromaConsole.gradient = tinygradient(holder[0]);
         }
         else {
@@ -57,7 +45,7 @@ export class ChromaConsole {
         console.log('\x1b[0m', this.formatString(inputString));
     }
     buffer() {
-        var holder = '■▣'.repeat(50);
+        const holder = '■▣'.repeat(50);
         console.log('\x1b[0m', ChromaConsole.formatString(holder));
     }
     static formatString(input) {
@@ -86,6 +74,18 @@ export class ChromaConsole {
         }
     }
 }
+ChromaConsole.consoleStart = () => {
+    console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+    console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)));
+    console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+    console.log('');
+};
+ChromaConsole.consoleEnd = () => {
+    console.log('');
+    console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+    console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)));
+    console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+};
 ChromaConsole.gradientShorthands = {
     vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
     softrainbow: [
@@ -125,7 +125,10 @@ function test() {
     //var chroma = new ChromaConsole('vaporwave');
     //chroma.consoleStart();
     //chroma.consoleEnd();
-    ChromaConsole.log('test');
+    // ChromaConsole.log('test');
+    ChromaConsole.log(loren);
+    ChromaConsole.consoleStart();
+    ChromaConsole.consoleEnd();
 }
 test();
 //# sourceMappingURL=index.js.map
