@@ -1,27 +1,30 @@
 //@ts-ignore
 import tinygradient from 'tinygradient';
 
-export class ChromaConsole {
+export class ChCo {
     static gradient: tinygradient;
     keyword: string;
 
+    static loren :string =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
     constructor(keyword?: string) {
-        ChromaConsole.setColor(keyword);
+        ChCo.setColor(keyword);
     }
 
     static setColor(keyword:string)
     {
         if (keyword) {
             const gradient = Object.fromEntries(
-                Object.entries(ChromaConsole.gradientShorthands).filter(([key]) =>
+                Object.entries(ChCo.gradientShorthands).filter(([key]) =>
                     key.includes(keyword)
                 )
             );
 
             const holder = Object.values(gradient);
-            ChromaConsole.gradient = tinygradient(holder[0]);
+            ChCo.gradient = tinygradient(holder[0]);
         } else {
-            ChromaConsole.gradient = tinygradient(ChromaConsole.gradientShorthands.softrainbow);
+            ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
         }
     }
 
@@ -31,17 +34,17 @@ export class ChromaConsole {
 
     buffer() {
         const holder = '■▣'.repeat(50);
-        console.log('\x1b[0m', ChromaConsole.formatString(holder));
+        console.log('\x1b[0m', ChCo.formatString(holder));
     }
 
     static formatString(input: string) {
-        if (!ChromaConsole.gradient) {
-            ChromaConsole.gradient = tinygradient(this.gradientShorthands.softrainbow);
+        if (!ChCo.gradient) {
+            ChCo.gradient = tinygradient(this.gradientShorthands.softrainbow);
         }
 
         if (!!input === false) {
             return;
-        } else if (input.length < ChromaConsole.gradient.stops.length) {
+        } else if (input.length < ChCo.gradient.stops.length) {
 
             // TODO - redo this logic, it sets the gradient permanently right now
             // ChromaConsole.gradient.stops = [
@@ -50,7 +53,7 @@ export class ChromaConsole {
             // ];
             return input;
         } else {
-            var colorArray = ChromaConsole.gradient.rgb(input.length);
+            var colorArray = ChCo.gradient.rgb(input.length);
 
             let output = '';
 
@@ -103,32 +106,38 @@ export class ChromaConsole {
         }
     };
 
-    static consoleStart = () => {
-        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+    static start = () => {
+        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
         console.log(
             '\x1b[0m',
-            ChromaConsole.formatString(
+            ChCo.formatString(
                 '■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)
             )
         );
 
-        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
-
+        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
         console.log('');
     };
 
-    static consoleEnd = () => {
+    static end = () => {
         console.log('');
-        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
         console.log(
             '\x1b[0m',
-            ChromaConsole.formatString(
+            ChCo.formatString(
                 '■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)
             )
         );
 
-        console.log('\x1b[0m', ChromaConsole.formatString('■▣'.repeat(50)));
+        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
     };
+
+    static debug = () =>
+    {
+        ChCo.start();
+        ChCo.log(ChCo.loren);
+        ChCo.end();
+    }
 
     static gradientShorthands = {
         vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
@@ -168,22 +177,21 @@ export class ChromaConsole {
 
 
 function test(): void {
-    var loren =
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-    var holder = '■'.repeat(100);
 
-    //var chroma = new ChromaConsole('vaporwave');
-    //chroma.consoleStart();
-    //chroma.consoleEnd();
+    ChCo.debug();
+    
+    ChCo.setColor('oldmovie');
+    ChCo.debug();
+
+    ChCo.setColor('vaporwave');
+    ChCo.debug();
+
+    ChCo.setColor('firewood');
+    ChCo.debug();
+
+    ChCo.setColor('rainbow');
+    ChCo.debug();
   
-    ChromaConsole.log('');
-    ChromaConsole.log('test');
-    ChromaConsole.log(loren);
-    ChromaConsole.consoleStart();
-    ChromaConsole.consoleEnd();
-
-    ChromaConsole.setColor('oldmovie');
-    ChromaConsole.log(loren);
 }
 
 test();
