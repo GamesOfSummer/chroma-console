@@ -177,7 +177,6 @@ export class ChCo {
 
 
 function test(): void {
-
     ChCo.debug();
     
     ChCo.setColor('oldmovie');
@@ -191,8 +190,7 @@ function test(): void {
 
     ChCo.setColor('rainbow');
     ChCo.debug();
-  
 }
 
-test();
+//test();
 

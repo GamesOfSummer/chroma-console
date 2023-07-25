@@ -1,9 +1,9 @@
 {
     "name": "chroma-console",
-    "description": "Visual Studio Code, Lightweight, Console",
-    "version": "1.0.4",
+    "description": "Colorful output to the VSC Terminal",
+    "version": "1.0.5",
     "license": "MIT",
-    "author": "Summer T",
+    "author": "Summer Tomaseski",
     "main": "src/index.js",
     "type": "module",
     "scripts": {
@@ -16,6 +16,15 @@
     "repository": {
         "type": "git"
     },
+    "keywords": [
+		"chroma",
+		"terminal",
+		"console",
+		"cli",
+		"log",
+		"logging",
+		"command line"
+	],
     "devDependencies": {
         "eslint": "^8.44.0",
         "prettier": "3.0.0",
