@@ -140,4 +140,4 @@ function test() {
     ChCo.setColor('rainbow');
     ChCo.debug();
 }
-test();
+//test();
