@@ -1,5 +1,9 @@
 //@ts-ignore
-import tinygradient from 'tinygradient';
+//import tinygradient from 'tinygradient';
+const tinygradient = require('tinygradient');
+export const sum = (a, b) => {
+    return a + b;
+};
 export class ChCo {
     constructor(keyword) {
         this.consoleRed = (value) => {

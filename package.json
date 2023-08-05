@@ -7,7 +7,9 @@
     "main": "src/index.js",
     "type": "module",
     "scripts": {
-        "run": "tsc -t ES2020 src/index.ts && node src/index.js",
+        "run": "ts-node --esm src/index.ts",
+        "test": "npx jest",
+
         "⬇️ install-npm-packages": "npm install",
         "___Global install NCU to run the commands below": "https://www.npmjs.com/package/npm-check-updates",
         "🔍check-npm-packages": "ncu",
@@ -17,21 +19,25 @@
         "type": "git"
     },
     "keywords": [
-		"chroma",
-		"terminal",
-		"console",
-		"cli",
-		"log",
-		"logging",
-		"command line"
-	],
+        "chroma",
+        "terminal",
+        "console",
+        "cli",
+        "log",
+        "logging",
+        "command line"
+    ],
     "devDependencies": {
-        "eslint": "^8.45.0",
-        "prettier": "3.0.0",
+        "@babel/parser": "^7.22.7",
+        "@types/jest": "^29.5.3",
+        "eslint": "^8.46.0",
+        "jest": "^29.6.2",
+        "prettier": "3.0.1",
+        "ts-jest": "^29.1.1",
         "typescript": "^5.1.6"
     },
     "dependencies": {
+        "@babel/core": "^7.22.9",
         "tinygradient": "^1.1.5"
     }
 }
-
