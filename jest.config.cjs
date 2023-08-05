@@ -8,7 +8,7 @@ module.exports = {
       "<rootDir>/build/"
     ],
     transform: {
-      '^.+\\.ts?$': 'ts-jest',
-      "^.+\\.(js|jsx)$": "babel-jest"
+     //'^.+\\.ts?$': 'ts-jest',
+      "^.+\\.(js|ts)$": "babel-jest"
     },
   };

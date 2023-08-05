@@ -9,7 +9,6 @@
     "scripts": {
         "run": "ts-node --esm src/index.ts",
         "test": "npx jest",
-
         "⬇️ install-npm-packages": "npm install",
         "___Global install NCU to run the commands below": "https://www.npmjs.com/package/npm-check-updates",
         "🔍check-npm-packages": "ncu",
@@ -29,7 +28,9 @@
     ],
     "devDependencies": {
         "@babel/parser": "^7.22.7",
+        "@babel/preset-env": "^7.22.9",
         "@types/jest": "^29.5.3",
+        "babel-jest": "^29.6.2",
         "eslint": "^8.46.0",
         "jest": "^29.6.2",
         "prettier": "3.0.1",
