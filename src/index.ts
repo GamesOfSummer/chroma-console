@@ -4,35 +4,43 @@ import tinygradient from 'tinygradient';
 
 export class ChCo {
     static gradient: typeof tinygradient;
+    static gradientStringBackUp : string = 'softrainbow';
 
     static loren :string =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+
 
     constructor(keyword?: string) {
 
         if(!!keyword)
         {
             ChCo.setColor(keyword);
+            ChCo.gradientStringBackUp = keyword;
         }
         else
         {
             ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
+            ChCo.gradientStringBackUp = 'softrainbow';
         } 
     }
 
+    static getGradient(keyword:string)
+    {
+        const gradient = Object.fromEntries(
+            Object.entries(ChCo.gradientShorthands).filter(([key]) =>
+                key.includes(keyword)
+            )
+        );
+
+        const holder = Object.values(gradient);
+        return tinygradient(holder[0]);
+    }
 
     //todo - make this better
     static setColor(keyword:string)
     {
         if (keyword) {
-            const gradient = Object.fromEntries(
-                Object.entries(ChCo.gradientShorthands).filter(([key]) =>
-                    key.includes(keyword)
-                )
-            );
-
-            const holder = Object.values(gradient);
-            ChCo.gradient = tinygradient(holder[0]);
+            ChCo.gradient = this.getGradient(keyword);
         } else {
             ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
         }
@@ -48,21 +56,19 @@ export class ChCo {
     }
 
     static formatString(input: string) {
-        if (!ChCo.gradient) {
-            ChCo.gradient = tinygradient(this.gradientShorthands.softrainbow);
-        }
+       
+        const backupGraident = ChCo.gradient;
+         if (input.length < ChCo.gradient.stops.length) {
 
-        if (!!input === false) {
-            return;
-        } else if (input.length < ChCo.gradient.stops.length) {
+            let holder = this.getGradient(this.gradientStringBackUp);
+            var holder2 = holder.stops.slice(0, input.length - 1);
+            
+            ChCo.gradient = tinygradient(holder2); 
+        } 
+  
 
-            // TODO - redo this logic, it sets the gradient permanently right now
-            // ChromaConsole.gradient.stops = [
-            //     ChromaConsole.gradient.stops[0],
-            //     ChromaConsole.gradient.stops[1],
-            // ];
-            return input;
-        } else {
+
+
             var colorArray = ChCo.gradient.rgb(input.length);
 
             let output = '';
@@ -74,8 +80,14 @@ export class ChCo {
                 )};${Math.round(_b)}m${input[i]}`;
             }
             output += '\x1b[0m';
-            return output;
-        }
+
+
+            ChCo.gradient = backupGraident;
+
+
+
+
+            return output;        
     }
 
     consoleRed = (value: string) => {
@@ -202,5 +214,22 @@ function test(): void {
     ChCo.debug();
 }
 
-test();
+//test();
+
+
+function test2(): void {
+   
+    
+    ChCo.setColor('firewood');
+
+    ChCo.log('aaa');
+    ChCo.log('aaaaaaaaaaaa');
+    ChCo.debug();
+    ChCo.log('a');
+
+}
+
+test2();
+
+
 

@@ -1,9 +1,5 @@
 //@ts-ignore
-//import tinygradient from 'tinygradient';
-const tinygradient = require('tinygradient');
-export const sum = (a, b) => {
-    return a + b;
-};
+import tinygradient from 'tinygradient';
 export class ChCo {
     constructor(keyword) {
         this.consoleRed = (value) => {
@@ -36,13 +32,24 @@ export class ChCo {
                 console.log('\x1b[0;31m', str + ' => ' + eval(value));
             }
         };
-        ChCo.setColor(keyword);
+        if (!!keyword) {
+            ChCo.setColor(keyword);
+            ChCo.gradientStringBackUp = keyword;
+        }
+        else {
+            ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
+            ChCo.gradientStringBackUp = 'softrainbow';
+        }
     }
+    static getGradient(keyword) {
+        const gradient = Object.fromEntries(Object.entries(ChCo.gradientShorthands).filter(([key]) => key.includes(keyword)));
+        const holder = Object.values(gradient);
+        return tinygradient(holder[0]);
+    }
+    //todo - make this better
     static setColor(keyword) {
         if (keyword) {
-            const gradient = Object.fromEntries(Object.entries(ChCo.gradientShorthands).filter(([key]) => key.includes(keyword)));
-            const holder = Object.values(gradient);
-            ChCo.gradient = tinygradient(holder[0]);
+            ChCo.gradient = this.getGradient(keyword);
         }
         else {
             ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
@@ -56,33 +63,32 @@ export class ChCo {
         console.log('\x1b[0m', ChCo.formatString(holder));
     }
     static formatString(input) {
-        if (!ChCo.gradient) {
-            ChCo.gradient = tinygradient(this.gradientShorthands.softrainbow);
-        }
-        if (!!input === false) {
-            return;
-        }
-        else if (input.length < ChCo.gradient.stops.length) {
+        const backupGraident = ChCo.gradient;
+        if (input.length < ChCo.gradient.stops.length) {
             // TODO - redo this logic, it sets the gradient permanently right now
             // ChromaConsole.gradient.stops = [
             //     ChromaConsole.gradient.stops[0],
             //     ChromaConsole.gradient.stops[1],
             // ];
+            console.log(this.gradientStringBackUp);
+            //console.log(ChCo.gradient.stops.length);
+            //var holder = ChCo.gradient.stops.slice(1);
+            let holder2 = this.getGradient(this.gradientStringBackUp);
+            //var holder = ChCo.gradient.stops.slice(1);
+            console.log(holder2);
             return input;
         }
-        else {
-            var colorArray = ChCo.gradient.rgb(input.length);
-            let output = '';
-            for (let i = 0; i < input.length; i++) {
-                var { _r, _g, _b } = colorArray[i];
-                output += `\x1b[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
-            }
-            output += '\x1b[0m';
-            return output;
+        var colorArray = ChCo.gradient.rgb(input.length);
+        let output = '';
+        for (let i = 0; i < input.length; i++) {
+            var { _r, _g, _b } = colorArray[i];
+            output += `\x1b[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
         }
+        output += '\x1b[0m';
+        ChCo.gradient = backupGraident;
+        return output;
     }
 }
-ChCo.loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 ChCo.start = () => {
     console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
     console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)));
@@ -97,7 +103,6 @@ ChCo.end = () => {
 };
 ChCo.debug = () => {
     ChCo.start();
-    ChCo.log(ChCo.loren);
     ChCo.end();
 };
 ChCo.gradientShorthands = {
@@ -145,3 +150,10 @@ function test() {
     ChCo.debug();
 }
 //test();
+function test2() {
+    ChCo.setColor('firewood');
+    ChCo.log('aaa');
+    //ChCo.log('a');
+    //ChCo.log('aaaaaaaaaaaa');
+}
+test2();
