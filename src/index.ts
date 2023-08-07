@@ -56,38 +56,47 @@ export class ChCo {
     }
 
     static formatString(input: string) {
-       
+
         const backupGraident = ChCo.gradient;
-         if (input.length < ChCo.gradient.stops.length) {
 
+        if(input.length == 0)
+        {
+            return input;
+        }
+        else if (input.length < 3)
+        {
             let holder = this.getGradient(this.gradientStringBackUp);
-            var holder2 = holder.stops.slice(0, input.length - 1);
-            
-            ChCo.gradient = tinygradient(holder2); 
-        } 
+            var holder2 = holder.stops.slice(0, 1);
+            //ChCo.gradient = tinygradient(holder2); 
+
+            return input;
+        }
+        else  {
   
-
-
-
-            var colorArray = ChCo.gradient.rgb(input.length);
-
-            let output = '';
-
-            for (let i = 0; i < input.length; i++) {
-                var { _r, _g, _b } = colorArray[i];
-                output += `\x1b[38;2;${Math.round(_r)};${Math.round(
-                    _g
-                )};${Math.round(_b)}m${input[i]}`;
+            
+            if (input.length < ChCo.gradient.stops.length){
+                let holder = this.getGradient(this.gradientStringBackUp);
+                var holder2 = holder.stops.slice(0, input.length - 1);
+                ChCo.gradient = tinygradient(holder2); 
             }
-            output += '\x1b[0m';
 
+                var colorArray = ChCo.gradient.rgb(input.length);
 
-            ChCo.gradient = backupGraident;
-
-
-
-
-            return output;        
+                let output = '';
+    
+                for (let i = 0; i < input.length; i++) {
+                    var { _r, _g, _b } = colorArray[i];
+                    output += `\x1b[38;2;${Math.round(_r)};${Math.round(
+                        _g
+                    )};${Math.round(_b)}m${input[i]}`;
+                }
+                output += '\x1b[0m';
+    
+    
+                ChCo.gradient = backupGraident;
+    
+                return output;        
+        } 
     }
 
     consoleRed = (value: string) => {
@@ -218,14 +227,16 @@ function test(): void {
 
 
 function test2(): void {
-   
-    
-    ChCo.setColor('firewood');
+     
+    ChCo.setColor('vaporwave');
 
+
+    ChCo.log('a');
+    ChCo.log('aa');
     ChCo.log('aaa');
     ChCo.log('aaaaaaaaaaaa');
     ChCo.debug();
-    ChCo.log('a');
+
 
 }
 
