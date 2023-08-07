@@ -38,8 +38,10 @@ Please note if you want more options, please check out [🔗 Chalk](https://gith
 
 ### TODO -
 
-* types
-* readme, with pictures
+
 * if you set the color wrong, error out
-* different colors (red, orange, yellow, etc)
+* how do you set the color more easily?
+
+* setting color with a tiny string is broken(?)
+* different colors (red, orange, yellow, etc) / unit tests for this
 * bool flag helper
