@@ -209,23 +209,45 @@ export class ChCo {
         ChCo.end();
     }
 
+    static characterDebug = () =>
+    {
+        ChCo.log('a');
+        ChCo.log('aa');
+        ChCo.log('aaa');
+        ChCo.log('aaaa');
+        ChCo.log('aaaaa');
+        ChCo.log('aaaaaaaaaa');
+    }
+
+    static superDebug = () =>
+    {
+        ChCo.characterDebug();
+        ChCo.debug();
+
+        ChCo.setColor('purplehaze');
+        ChCo.characterDebug();
+        ChCo.debug();
+
+        ChCo.setColor('vaporwave');
+        ChCo.characterDebug();
+        ChCo.debug();
+
+        ChCo.setColor('oldmovie');
+        ChCo.characterDebug();
+        ChCo.debug();
+
+        ChCo.setColor('firewood');
+        ChCo.characterDebug();
+        ChCo.debug();
+    }
+
 }
 
 
 
 function test(): void {
 
-
-    ChCo.setColor('purplehaze');
-
-    ChCo.log('a');
-    ChCo.log('aa');
-    ChCo.log('aaa');
-    ChCo.log('aaaa');
-    ChCo.log('aaaaa');
-    ChCo.log('aaaaaaaaaaaa');
-    ChCo.debug();
-
+    ChCo.superDebug();
 }
 
 test();
