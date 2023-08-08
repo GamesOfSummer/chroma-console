@@ -3,29 +3,59 @@ import tinygradient from 'tinygradient';
 
 
 export class ChCo {
-    static gradient: typeof tinygradient;
+
+
+    static gradientShorthands = {
+        vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
+        softrainbow: [
+            '#c1153d',
+            '#dd901c',
+            '#efe52d',
+            '#5eef2d',
+            '#2750f4',
+            '#2914e5',
+        ],
+        oldmovie: [
+            '#F8F9FA',
+            '#E9ECEF',
+            '#DEE2E6',
+            '#CED4DA',
+            '#ADB5BD',
+            '#6C757D',
+            '#495057',
+            '#343A40',
+            '#212529',
+        ],
+        firewood: [
+            '#03071E',
+            '#370617',
+            '#6A040F',
+            '#9D0208',
+            '#D00000',
+            '#DC2F02',
+            '#E85D04',
+            '#F48C06',
+            '#FAA307',
+        ],
+    };
+
+    static gradient: typeof tinygradient = tinygradient(ChCo.gradientShorthands.softrainbow);
     static gradientStringBackUp : string = 'softrainbow';
 
     static loren :string =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
 
-    constructor(keyword?: string) {
-
-        if(!!keyword)
-        {
-            ChCo.setColor(keyword);
-            ChCo.gradientStringBackUp = keyword;
-        }
-        else
-        {
-            ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
-            ChCo.gradientStringBackUp = 'softrainbow';
-        } 
+    constructor() {
     }
 
     static getGradient(keyword:string)
     {
+        if(!keyword)
+        {
+            return tinygradient(this.gradientShorthands.softrainbow);
+        }
+
         const gradient = Object.fromEntries(
             Object.entries(ChCo.gradientShorthands).filter(([key]) =>
                 key.includes(keyword)
@@ -72,8 +102,7 @@ export class ChCo {
             return input;
         }
         else  {
-  
-            
+        
             if (input.length < ChCo.gradient.stops.length){
                 let holder = this.getGradient(this.gradientStringBackUp);
                 var holder2 = holder.stops.slice(0, input.length - 1);
@@ -170,77 +199,31 @@ export class ChCo {
         ChCo.end();
     }
 
-    static gradientShorthands = {
-        vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
-        softrainbow: [
-            '#c1153d',
-            '#dd901c',
-            '#efe52d',
-            '#5eef2d',
-            '#2750f4',
-            '#2914e5',
-        ],
-        oldmovie: [
-            '#F8F9FA',
-            '#E9ECEF',
-            '#DEE2E6',
-            '#CED4DA',
-            '#ADB5BD',
-            '#6C757D',
-            '#495057',
-            '#343A40',
-            '#212529',
-        ],
-        firewood: [
-            '#03071E',
-            '#370617',
-            '#6A040F',
-            '#9D0208',
-            '#D00000',
-            '#DC2F02',
-            '#E85D04',
-            '#F48C06',
-            '#FAA307',
-        ],
-    };
 }
 
 
 
 function test(): void {
-    ChCo.debug();
-    
-    ChCo.setColor('oldmovie');
-    ChCo.debug();
 
-    ChCo.setColor('vaporwave');
-    ChCo.debug();
+ //ChCo.setColor('oldmovie');
 
-    ChCo.setColor('firewood');
-    ChCo.debug();
-
-    ChCo.setColor('rainbow');
-    ChCo.debug();
-}
-
-//test();
-
-
-function test2(): void {
-     
-    ChCo.setColor('vaporwave');
-
-
+ 
+    ChCo.log('aaa');
+    ChCo.log('aaaa');
     ChCo.log('a');
     ChCo.log('aa');
-    ChCo.log('aaa');
+    ChCo.log('aaaaa');
     ChCo.log('aaaaaaaaaaaa');
     ChCo.debug();
 
 
+    
+    //hCo.setColor('oldmovie');
+    //ChCo.debug();
+
+
 }
 
-test2();
-
+test();
 
 
