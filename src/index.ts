@@ -6,6 +6,7 @@ export class ChCo {
 
 
     static gradientShorthands = {
+        purplehaze: [ '#9900ff','#cc99ff'],
         vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
         softrainbow: [
             '#c1153d',
@@ -95,11 +96,20 @@ export class ChCo {
         }
         else if (input.length < 3)
         {
-            let holder = this.getGradient(this.gradientStringBackUp);
-            var holder2 = holder.stops.slice(0, 1);
-            //ChCo.gradient = tinygradient(holder2); 
+            let currentGradient = this.getGradient(this.gradientStringBackUp);
+            let editedGradient = currentGradient.stops.slice(0, input.length);
 
-            return input;
+            let output = '';
+    
+            for (let i = 0; i < input.length; i++) {
+                var { _r, _g, _b } = editedGradient[i].color;
+                output += `\x1b[38;2;${Math.round(_r)};${Math.round(
+                    _g
+                )};${Math.round(_b)}m${input[i]}`;
+            }
+            output += '\x1b[0m';
+
+            return output;
         }
         else  {
         
@@ -205,22 +215,16 @@ export class ChCo {
 
 function test(): void {
 
- //ChCo.setColor('oldmovie');
 
- 
-    ChCo.log('aaa');
-    ChCo.log('aaaa');
+    ChCo.setColor('oldmovie');
+
     ChCo.log('a');
     ChCo.log('aa');
+    ChCo.log('aaa');
+    ChCo.log('aaaa');
     ChCo.log('aaaaa');
     ChCo.log('aaaaaaaaaaaa');
     ChCo.debug();
-
-
-    
-    //hCo.setColor('oldmovie');
-    //ChCo.debug();
-
 
 }
 
