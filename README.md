@@ -36,12 +36,11 @@ Uses [🔗 gradient-string](https://github.com/bokub/gradient-string)
 Please note if you want more options, please check out [🔗 Chalk](https://github.com/chalk/chalk),[🔗 Chalk Animation](https://github.com/bokub/chalk-animation), or[🔗colorfy](https://github.com/kippisone/colorfy)
 
 
+NPM Package Link - https://www.npmjs.com/package/chroma-console
+
 ### TODO -
 
 
 * if you set the color wrong, error out
-* how do you set the color more easily?
-
-* setting color with a tiny string is broken(?)
 * different colors (red, orange, yellow, etc) / unit tests for this
 * bool flag helper

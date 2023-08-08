@@ -1,7 +1,7 @@
 {
     "name": "chroma-console",
     "description": "Colorful output to the VSC Terminal",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "license": "MIT",
     "author": "Summer Tomaseski",
     "main": "src/index.js",

@@ -4,7 +4,6 @@ import tinygradient from 'tinygradient';
 
 export class ChCo {
 
-
     static gradientShorthands = {
         purplehaze: [ '#9900ff','#cc99ff'],
         vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
@@ -41,11 +40,9 @@ export class ChCo {
     };
 
     static gradient: typeof tinygradient = tinygradient(ChCo.gradientShorthands.softrainbow);
-    static gradientStringBackUp : string = 'softrainbow';
-
+   
     static loren :string =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-
 
     constructor() {
     }
@@ -67,7 +64,6 @@ export class ChCo {
         return tinygradient(holder[0]);
     }
 
-    //todo - make this better
     static setColor(keyword:string)
     {
         if (keyword) {
@@ -87,7 +83,6 @@ export class ChCo {
     }
 
     static formatString(input: string) {
-
         const backupGraident = ChCo.gradient;
 
         if(input.length == 0)
@@ -96,7 +91,6 @@ export class ChCo {
         }
         else if (input.length < 3)
         {
-           // let currentGradient = this.getGradient(this.gradientStringBackUp);
             let editedGradient =  ChCo.gradient.stops.slice(0, input.length);
 
             let output = '';
@@ -114,13 +108,11 @@ export class ChCo {
         else  {
         
             if (input.length < ChCo.gradient.stops.length){
-                //let holder = this.getGradient(this.gradientStringBackUp);
                 var holder2 = ChCo.gradient.stops.slice(0, input.length - 1);
                 ChCo.gradient = tinygradient(holder2); 
             }
 
                 var colorArray = ChCo.gradient.rgb(input.length);
-
                 let output = '';
     
                 for (let i = 0; i < input.length; i++) {
@@ -133,7 +125,6 @@ export class ChCo {
     
     
                 ChCo.gradient = backupGraident;
-    
                 return output;        
         } 
     }
@@ -244,12 +235,11 @@ export class ChCo {
 }
 
 
-
 function test(): void {
 
     ChCo.superDebug();
 }
 
-test();
+//test();
 
 
