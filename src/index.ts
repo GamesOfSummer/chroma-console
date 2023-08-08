@@ -96,8 +96,8 @@ export class ChCo {
         }
         else if (input.length < 3)
         {
-            let currentGradient = this.getGradient(this.gradientStringBackUp);
-            let editedGradient = currentGradient.stops.slice(0, input.length);
+           // let currentGradient = this.getGradient(this.gradientStringBackUp);
+            let editedGradient =  ChCo.gradient.stops.slice(0, input.length);
 
             let output = '';
     
@@ -114,8 +114,8 @@ export class ChCo {
         else  {
         
             if (input.length < ChCo.gradient.stops.length){
-                let holder = this.getGradient(this.gradientStringBackUp);
-                var holder2 = holder.stops.slice(0, input.length - 1);
+                //let holder = this.getGradient(this.gradientStringBackUp);
+                var holder2 = ChCo.gradient.stops.slice(0, input.length - 1);
                 ChCo.gradient = tinygradient(holder2); 
             }
 
@@ -216,7 +216,7 @@ export class ChCo {
 function test(): void {
 
 
-    ChCo.setColor('oldmovie');
+    ChCo.setColor('purplehaze');
 
     ChCo.log('a');
     ChCo.log('aa');
