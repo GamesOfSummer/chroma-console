@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChCo = void 0;
-//@ts-ignore
 var tinygradient_1 = require("tinygradient");
 var ChCo = exports.ChCo = /** @class */ (function () {
     function ChCo() {
@@ -72,6 +71,7 @@ var ChCo = exports.ChCo = /** @class */ (function () {
             var editedGradient = ChCo.gradient.stops.slice(0, input.length);
             var output = '';
             for (var i = 0; i < input.length; i++) {
+                // @ts-ignore
                 var _r = (_a = editedGradient[i].color, _a._r), _g = _a._g, _b = _a._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
@@ -86,6 +86,7 @@ var ChCo = exports.ChCo = /** @class */ (function () {
             var colorArray = ChCo.gradient.rgb(input.length);
             var output = '';
             for (var i = 0; i < input.length; i++) {
+                // @ts-ignore
                 var _r = (_c = colorArray[i], _c._r), _g = _c._g, _b = _c._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }

@@ -1,11 +1,8 @@
-//@ts-ignore
 import tinygradient from 'tinygradient';
 
-
 export class ChCo {
-
     static gradientShorthands = {
-        purplehaze: [ '#9900ff','#cc99ff'],
+        purplehaze: ['#9900ff', '#cc99ff'],
         vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
         softrainbow: [
             '#c1153d',
@@ -39,18 +36,15 @@ export class ChCo {
         ],
     };
 
-    static gradient: typeof tinygradient = tinygradient(ChCo.gradientShorthands.softrainbow);
-   
-    static loren :string =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    static gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
 
-    constructor() {
-    }
+    static loren: string =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
-    static getGradient(keyword:string)
-    {
-        if(!keyword)
-        {
+    constructor() {}
+
+    static getGradient(keyword: string) {
+        if (!keyword) {
             return tinygradient(this.gradientShorthands.softrainbow);
         }
 
@@ -64,8 +58,7 @@ export class ChCo {
         return tinygradient(holder[0]);
     }
 
-    static setColor(keyword:string)
-    {
+    static setColor(keyword: string) {
         if (keyword) {
             ChCo.gradient = this.getGradient(keyword);
         } else {
@@ -85,17 +78,15 @@ export class ChCo {
     static formatString(input: string) {
         const backupGraident = ChCo.gradient;
 
-        if(input.length == 0)
-        {
+        if (input.length == 0) {
             return input;
-        }
-        else if (input.length < 3)
-        {
-            let editedGradient =  ChCo.gradient.stops.slice(0, input.length);
+        } else if (input.length < 3) {
+            let editedGradient = ChCo.gradient.stops.slice(0, input.length);
 
             let output = '';
-    
+
             for (let i = 0; i < input.length; i++) {
+                // @ts-ignore
                 var { _r, _g, _b } = editedGradient[i].color;
                 output += `\x1b[38;2;${Math.round(_r)};${Math.round(
                     _g
@@ -104,29 +95,27 @@ export class ChCo {
             output += '\x1b[0m';
 
             return output;
-        }
-        else  {
-        
-            if (input.length < ChCo.gradient.stops.length){
+        } else {
+            if (input.length < ChCo.gradient.stops.length) {
                 var holder2 = ChCo.gradient.stops.slice(0, input.length - 1);
-                ChCo.gradient = tinygradient(holder2); 
+                ChCo.gradient = tinygradient(holder2);
             }
 
-                var colorArray = ChCo.gradient.rgb(input.length);
-                let output = '';
-    
-                for (let i = 0; i < input.length; i++) {
-                    var { _r, _g, _b } = colorArray[i];
-                    output += `\x1b[38;2;${Math.round(_r)};${Math.round(
-                        _g
-                    )};${Math.round(_b)}m${input[i]}`;
-                }
-                output += '\x1b[0m';
-    
-    
-                ChCo.gradient = backupGraident;
-                return output;        
-        } 
+            var colorArray = ChCo.gradient.rgb(input.length);
+            let output = '';
+
+            for (let i = 0; i < input.length; i++) {
+                // @ts-ignore
+                var { _r, _g, _b } = colorArray[i];
+                output += `\x1b[38;2;${Math.round(_r)};${Math.round(
+                    _g
+                )};${Math.round(_b)}m${input[i]}`;
+            }
+            output += '\x1b[0m';
+
+            ChCo.gradient = backupGraident;
+            return output;
+        }
     }
 
     consoleRed = (value: string) => {
@@ -193,25 +182,22 @@ export class ChCo {
         console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
     };
 
-    static debug = () =>
-    {
+    static debug = () => {
         ChCo.start();
         ChCo.log(ChCo.loren);
         ChCo.end();
-    }
+    };
 
-    static characterDebug = () =>
-    {
+    static characterDebug = () => {
         ChCo.log('a');
         ChCo.log('aa');
         ChCo.log('aaa');
         ChCo.log('aaaa');
         ChCo.log('aaaaa');
         ChCo.log('aaaaaaaaaa');
-    }
+    };
 
-    static superDebug = () =>
-    {
+    static superDebug = () => {
         ChCo.characterDebug();
         ChCo.debug();
 
@@ -230,16 +216,11 @@ export class ChCo {
         ChCo.setColor('firewood');
         ChCo.characterDebug();
         ChCo.debug();
-    }
-
+    };
 }
 
-
 function test(): void {
-
     ChCo.superDebug();
 }
 
 //test();
-
-
