@@ -8,6 +8,7 @@
     "type": "module",
     "scripts": {
         "run": "ts-node --esm src/index.ts",
+        "run2": "node src/index.js",
         "build": "tsc src/index.ts",
         "test": "npx jest",
         "⬇️ install-npm-packages": "npm install",
