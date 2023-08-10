@@ -1,13 +1,14 @@
 {
     "name": "chroma-console",
     "description": "Colorful output to the VSC Terminal",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "license": "MIT",
     "author": "Summer Tomaseski",
     "main": "src/index.js",
     "type": "module",
     "scripts": {
         "run": "ts-node --esm src/index.ts",
+        "build": "tsc src/index.ts",
         "test": "npx jest",
         "⬇️ install-npm-packages": "npm install",
         "___Global install NCU to run the commands below": "https://www.npmjs.com/package/npm-check-updates",
@@ -42,3 +43,4 @@
         "tinygradient": "^1.1.5"
     }
 }
+
