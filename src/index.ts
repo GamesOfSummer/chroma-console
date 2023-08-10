@@ -1,4 +1,5 @@
-import tinygradient from 'tinygradient';
+//import tinygradient from 'tinygradient';
+var tinygradient = require('tinygradient');
 
 export class ChCo {
     static gradientShorthands = {

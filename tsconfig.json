@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "ESNext",
         "experimentalDecorators": true,
-        "module": "esnext",
+
         "moduleResolution": "node",
         "strict": true /* Enable all strict type-checking options. */,
         "esModuleInterop": true,

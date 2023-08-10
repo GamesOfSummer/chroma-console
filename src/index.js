@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChCo = void 0;
-var tinygradient_1 = require("tinygradient");
+//import tinygradient from 'tinygradient';
+var tinygradient = require('tinygradient');
 var ChCo = exports.ChCo = /** @class */ (function () {
     function ChCo() {
         this.consoleRed = function (value) {
@@ -37,21 +38,21 @@ var ChCo = exports.ChCo = /** @class */ (function () {
     }
     ChCo.getGradient = function (keyword) {
         if (!keyword) {
-            return (0, tinygradient_1.default)(this.gradientShorthands.softrainbow);
+            return tinygradient(this.gradientShorthands.softrainbow);
         }
         var gradient = Object.fromEntries(Object.entries(ChCo.gradientShorthands).filter(function (_a) {
             var key = _a[0];
             return key.includes(keyword);
         }));
         var holder = Object.values(gradient);
-        return (0, tinygradient_1.default)(holder[0]);
+        return tinygradient(holder[0]);
     };
     ChCo.setColor = function (keyword) {
         if (keyword) {
             ChCo.gradient = this.getGradient(keyword);
         }
         else {
-            ChCo.gradient = (0, tinygradient_1.default)(ChCo.gradientShorthands.softrainbow);
+            ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
         }
     };
     ChCo.log = function (inputString) {
@@ -81,7 +82,7 @@ var ChCo = exports.ChCo = /** @class */ (function () {
         else {
             if (input.length < ChCo.gradient.stops.length) {
                 var holder2 = ChCo.gradient.stops.slice(0, input.length - 1);
-                ChCo.gradient = (0, tinygradient_1.default)(holder2);
+                ChCo.gradient = tinygradient(holder2);
             }
             var colorArray = ChCo.gradient.rgb(input.length);
             var output = '';
@@ -129,7 +130,7 @@ var ChCo = exports.ChCo = /** @class */ (function () {
             '#FAA307',
         ],
     };
-    ChCo.gradient = (0, tinygradient_1.default)(ChCo.gradientShorthands.softrainbow);
+    ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
     ChCo.loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
     ChCo.start = function () {
         console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
