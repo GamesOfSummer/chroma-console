@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ChCo = void 0;
-//import tinygradient from 'tinygradient';
 var tinygradient = require('tinygradient');
 var ChCo = exports.ChCo = /** @class */ (function () {
     function ChCo() {
@@ -41,7 +40,7 @@ var ChCo = exports.ChCo = /** @class */ (function () {
             if (window === undefined || !window) {
                 return false;
             }
-            return window.console;
+            return !!window;
         }
         catch (_a) {
             return false;

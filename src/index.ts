@@ -1,4 +1,3 @@
-//import tinygradient from 'tinygradient';
 var tinygradient = require('tinygradient');
 
 export class ChCo {
@@ -44,13 +43,13 @@ export class ChCo {
 
     constructor() {}
 
-    static isBrowser() {
+    static isBrowser(): boolean {
         try {
             if (window === undefined || !window) {
                 return false;
             }
 
-            return window.console;
+            return !!window;
         } catch {
             return false;
         }
