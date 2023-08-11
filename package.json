@@ -1,14 +1,14 @@
 {
     "name": "chroma-console",
     "description": "Colorful output to the VSC Terminal",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "license": "MIT",
     "author": "Summer Tomaseski",
     "main": "src/index.js",
     "type": "commonjs",
     "scripts": {
-        "run": "ts-node --esm src/index.ts",
-        "run2": "node src/index.js",
+        "uberRun": "tsc src/index.ts && node src/index.js",
+        "run": "node src/index.js",
         "build": "tsc src/index.ts",
         "test": "npx jest",
         "⬇️ install-npm-packages": "npm install",

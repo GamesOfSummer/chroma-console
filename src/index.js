@@ -36,6 +36,17 @@ var ChCo = exports.ChCo = /** @class */ (function () {
             }
         };
     }
+    ChCo.isBrowser = function () {
+        try {
+            if (window === undefined || !window) {
+                return false;
+            }
+            return window.console;
+        }
+        catch (_a) {
+            return false;
+        }
+    };
     ChCo.getGradient = function (keyword) {
         if (!keyword) {
             return tinygradient(this.gradientShorthands.softrainbow);
@@ -146,36 +157,30 @@ var ChCo = exports.ChCo = /** @class */ (function () {
     };
     ChCo.debug = function () {
         ChCo.start();
-        ChCo.log(ChCo.loren);
-        ChCo.end();
-    };
-    ChCo.characterDebug = function () {
         ChCo.log('a');
         ChCo.log('aa');
         ChCo.log('aaa');
         ChCo.log('aaaa');
         ChCo.log('aaaaa');
         ChCo.log('aaaaaaaaaa');
+        ChCo.log(ChCo.loren);
+        ChCo.end();
     };
     ChCo.superDebug = function () {
-        ChCo.characterDebug();
         ChCo.debug();
         ChCo.setColor('purplehaze');
-        ChCo.characterDebug();
         ChCo.debug();
         ChCo.setColor('vaporwave');
-        ChCo.characterDebug();
         ChCo.debug();
         ChCo.setColor('oldmovie');
-        ChCo.characterDebug();
         ChCo.debug();
         ChCo.setColor('firewood');
-        ChCo.characterDebug();
         ChCo.debug();
     };
     return ChCo;
 }());
 function test() {
-    ChCo.superDebug();
+    ChCo.log("Is browser : ".concat(ChCo.isBrowser()));
+    // ChCo.superDebug();
 }
 //test();

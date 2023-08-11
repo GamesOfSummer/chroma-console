@@ -44,6 +44,18 @@ export class ChCo {
 
     constructor() {}
 
+    static isBrowser() {
+        try {
+            if (window === undefined || !window) {
+                return false;
+            }
+
+            return window.console;
+        } catch {
+            return false;
+        }
+    }
+
     static getGradient(keyword: string) {
         if (!keyword) {
             return tinygradient(this.gradientShorthands.softrainbow);
@@ -185,43 +197,36 @@ export class ChCo {
 
     static debug = () => {
         ChCo.start();
-        ChCo.log(ChCo.loren);
-        ChCo.end();
-    };
-
-    static characterDebug = () => {
         ChCo.log('a');
         ChCo.log('aa');
         ChCo.log('aaa');
         ChCo.log('aaaa');
         ChCo.log('aaaaa');
         ChCo.log('aaaaaaaaaa');
+        ChCo.log(ChCo.loren);
+        ChCo.end();
     };
 
     static superDebug = () => {
-        ChCo.characterDebug();
         ChCo.debug();
 
         ChCo.setColor('purplehaze');
-        ChCo.characterDebug();
         ChCo.debug();
 
         ChCo.setColor('vaporwave');
-        ChCo.characterDebug();
         ChCo.debug();
 
         ChCo.setColor('oldmovie');
-        ChCo.characterDebug();
         ChCo.debug();
 
         ChCo.setColor('firewood');
-        ChCo.characterDebug();
         ChCo.debug();
     };
 }
 
 function test(): void {
-    ChCo.superDebug();
+    ChCo.log(`Is browser : ${ChCo.isBrowser()}`);
+    // ChCo.superDebug();
 }
 
 //test();
