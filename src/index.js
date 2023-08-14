@@ -101,7 +101,7 @@ var ChCo = exports.ChCo = /** @class */ (function () {
                 var _r = (_c = colorArray[i], _c._r), _g = _c._g, _b = _c._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
-            output += '\x1b[0m';
+            output += '\x1B[0m';
             ChCo.gradient = backupGraident;
             return output;
         }
@@ -176,10 +176,23 @@ var ChCo = exports.ChCo = /** @class */ (function () {
         ChCo.setColor('firewood');
         ChCo.debug();
     };
+    ChCo.browserTest = function (input) {
+        var _a;
+        var colorArray = ChCo.gradient.rgb(input.length);
+        var output = '';
+        for (var i = 0; i < input.length; i++) {
+            // @ts-ignore
+            var _r = (_a = colorArray[i], _a._r), _g = _a._g, _b = _a._b;
+            output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
+        }
+        output += '\x1B[m';
+        console.log(output);
+        return output;
+    };
     return ChCo;
 }());
 function test() {
     ChCo.log("Is browser : ".concat(ChCo.isBrowser()));
-    // ChCo.superDebug();
+    ChCo.superDebug();
 }
-//test();
+test();

@@ -119,11 +119,11 @@ export class ChCo {
             for (let i = 0; i < input.length; i++) {
                 // @ts-ignore
                 var { _r, _g, _b } = colorArray[i];
-                output += `\x1b[38;2;${Math.round(_r)};${Math.round(
+                output += `\x1B[38;2;${Math.round(_r)};${Math.round(
                     _g
                 )};${Math.round(_b)}m${input[i]}`;
             }
-            output += '\x1b[0m';
+            output += '\x1B[0m';
 
             ChCo.gradient = backupGraident;
             return output;
@@ -221,11 +221,28 @@ export class ChCo {
         ChCo.setColor('firewood');
         ChCo.debug();
     };
+
+    static browserTest = (input: string) => {
+        var colorArray = ChCo.gradient.rgb(input.length);
+        let output = '';
+
+        for (let i = 0; i < input.length; i++) {
+            // @ts-ignore
+            var { _r, _g, _b } = colorArray[i];
+            output += `\x1B[38;2;${Math.round(_r)};${Math.round(
+                _g
+            )};${Math.round(_b)}m${input[i]}`;
+        }
+        output += '\x1B[m';
+
+        console.log(output);
+        return output;
+    };
 }
 
 function test(): void {
     ChCo.log(`Is browser : ${ChCo.isBrowser()}`);
-    // ChCo.superDebug();
+    ChCo.superDebug();
 }
 
-//test();
+test();
