@@ -86,13 +86,9 @@ export class ChCo {
         }
     }
 
-    static logb(inputString: string) {
-        console.log(this.formatString(inputString));
-    }
-
     buffer() {
         const holder = '■▣'.repeat(50);
-        console.log('\x1b[0m', ChCo.formatString(holder));
+        ChCo.formatString(holder);
     }
 
     static formatString(input: string) {
@@ -178,32 +174,20 @@ export class ChCo {
     };
 
     static start = () => {
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
-        console.log(
-            '\x1b[0m',
-            ChCo.formatString(
-                '■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)
-            )
-        );
-
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
+        ChCo.log('■▣'.repeat(50));
+        ChCo.log('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(21));
+        ChCo.log('■▣'.repeat(50));
         console.log('');
     };
 
     static end = () => {
         console.log('');
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
-        console.log(
-            '\x1b[0m',
-            ChCo.formatString(
-                '■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)
-            )
-        );
-
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
+        ChCo.log('■▣'.repeat(50));
+        ChCo.log('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(21));
+        ChCo.log('■▣'.repeat(50));
     };
 
-    static debug = () => {
+    static testForCharacterLengths = () => {
         ChCo.start();
         ChCo.log('a');
         ChCo.log('aa');
@@ -215,42 +199,21 @@ export class ChCo {
         ChCo.end();
     };
 
-    static superDebug = () => {
-        ChCo.debug();
+    static debug = () => {
+        ChCo.testForCharacterLengths();
 
         ChCo.setColor('purplehaze');
-        ChCo.debug();
+        ChCo.testForCharacterLengths();
 
         ChCo.setColor('vaporwave');
-        ChCo.debug();
+        ChCo.testForCharacterLengths();
 
         ChCo.setColor('oldmovie');
-        ChCo.debug();
+        ChCo.testForCharacterLengths();
 
         ChCo.setColor('firewood');
-        ChCo.debug();
-    };
-
-    static browserTest = (input: string) => {
-        var colorArray = ChCo.gradient.rgb(input.length);
-        let output = '';
-
-        for (let i = 0; i < input.length; i++) {
-            // @ts-ignore
-            var { _r, _g, _b } = colorArray[i];
-            output += `\x1B[38;2;${Math.round(_r)};${Math.round(
-                _g
-            )};${Math.round(_b)}m${input[i]}`;
-        }
-        output += '\x1B[m';
-
-        console.log(output);
-        return output;
+        ChCo.testForCharacterLengths();
     };
 }
 
-function test(): void {
-    ChCo.log(`Is browser : ${ChCo.isBrowser()}`);
-    ChCo.superDebug();
-}
-//test();
+ChCo.debug();

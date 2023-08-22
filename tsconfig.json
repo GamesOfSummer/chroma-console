@@ -2,7 +2,6 @@
     "compilerOptions": {
         "target": "ESNext",
         "experimentalDecorators": true,
-
         "moduleResolution": "node",
         "strict": true /* Enable all strict type-checking options. */,
         "esModuleInterop": true,

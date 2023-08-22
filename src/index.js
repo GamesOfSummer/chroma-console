@@ -73,12 +73,9 @@ var ChCo = exports.ChCo = /** @class */ (function () {
             console.log('\x1B[0m', this.formatString(inputString));
         }
     };
-    ChCo.logb = function (inputString) {
-        console.log(this.formatString(inputString));
-    };
     ChCo.prototype.buffer = function () {
         var holder = '■▣'.repeat(50);
-        console.log('\x1b[0m', ChCo.formatString(holder));
+        ChCo.formatString(holder);
     };
     ChCo.formatString = function (input) {
         var _a, _c;
@@ -151,18 +148,18 @@ var ChCo = exports.ChCo = /** @class */ (function () {
     ChCo.gradient = tinygradient(ChCo.gradientShorthands.softrainbow);
     ChCo.loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
     ChCo.start = function () {
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(22)));
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
+        ChCo.log('■▣'.repeat(50));
+        ChCo.log('■▣'.repeat(21) + ' Starting up ' + '■▣'.repeat(21));
+        ChCo.log('■▣'.repeat(50));
         console.log('');
     };
     ChCo.end = function () {
         console.log('');
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(22)));
-        console.log('\x1b[0m', ChCo.formatString('■▣'.repeat(50)));
+        ChCo.log('■▣'.repeat(50));
+        ChCo.log('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(21));
+        ChCo.log('■▣'.repeat(50));
     };
-    ChCo.debug = function () {
+    ChCo.testForCharacterLengths = function () {
         ChCo.start();
         ChCo.log('a');
         ChCo.log('aa');
@@ -173,34 +170,17 @@ var ChCo = exports.ChCo = /** @class */ (function () {
         ChCo.log(ChCo.loren);
         ChCo.end();
     };
-    ChCo.superDebug = function () {
-        ChCo.debug();
+    ChCo.debug = function () {
+        ChCo.testForCharacterLengths();
         ChCo.setColor('purplehaze');
-        ChCo.debug();
+        ChCo.testForCharacterLengths();
         ChCo.setColor('vaporwave');
-        ChCo.debug();
+        ChCo.testForCharacterLengths();
         ChCo.setColor('oldmovie');
-        ChCo.debug();
+        ChCo.testForCharacterLengths();
         ChCo.setColor('firewood');
-        ChCo.debug();
-    };
-    ChCo.browserTest = function (input) {
-        var _a;
-        var colorArray = ChCo.gradient.rgb(input.length);
-        var output = '';
-        for (var i = 0; i < input.length; i++) {
-            // @ts-ignore
-            var _r = (_a = colorArray[i], _a._r), _g = _a._g, _b = _a._b;
-            output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
-        }
-        output += '\x1B[m';
-        console.log(output);
-        return output;
+        ChCo.testForCharacterLengths();
     };
     return ChCo;
 }());
-function test() {
-    ChCo.log("Is browser : ".concat(ChCo.isBrowser()));
-    ChCo.superDebug();
-}
-//test();
+ChCo.debug();
