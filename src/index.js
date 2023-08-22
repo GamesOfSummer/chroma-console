@@ -66,7 +66,15 @@ var ChCo = exports.ChCo = /** @class */ (function () {
         }
     };
     ChCo.log = function (inputString) {
-        console.log('\x1b[0m', this.formatString(inputString));
+        if (ChCo.isBrowser()) {
+            console.log(this.formatString(inputString));
+        }
+        else {
+            console.log('\x1B[0m', this.formatString(inputString));
+        }
+    };
+    ChCo.logb = function (inputString) {
+        console.log(this.formatString(inputString));
     };
     ChCo.prototype.buffer = function () {
         var holder = '■▣'.repeat(50);
@@ -195,4 +203,4 @@ function test() {
     ChCo.log("Is browser : ".concat(ChCo.isBrowser()));
     ChCo.superDebug();
 }
-test();
+//test();

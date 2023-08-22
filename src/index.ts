@@ -79,7 +79,15 @@ export class ChCo {
     }
 
     static log(inputString: string) {
-        console.log('\x1b[0m', this.formatString(inputString));
+        if (ChCo.isBrowser()) {
+            console.log(this.formatString(inputString));
+        } else {
+            console.log('\x1B[0m', this.formatString(inputString));
+        }
+    }
+
+    static logb(inputString: string) {
+        console.log(this.formatString(inputString));
     }
 
     buffer() {
@@ -123,6 +131,7 @@ export class ChCo {
                     _g
                 )};${Math.round(_b)}m${input[i]}`;
             }
+
             output += '\x1B[0m';
 
             ChCo.gradient = backupGraident;
@@ -244,5 +253,4 @@ function test(): void {
     ChCo.log(`Is browser : ${ChCo.isBrowser()}`);
     ChCo.superDebug();
 }
-
-test();
+//test();
