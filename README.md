@@ -1,17 +1,17 @@
-# Chroma Console, aka 'ChCo'
+# Chroma Console, aka 'Coco'
 
-_(for VSC Terminal Use Only)_
+_(for Terminal or Google Chrome!)_
 
 A simple, yet opinionated, helper package for logging (colorful!) output to the console.
 
 **Rainbow font, with one import.** No configuration needed, just works.
 
 ```
-import { ChCo } from 'chroma-console';
+import { Coco } from 'chroma-console';
 
 (...)
 
-ChCo.log('testing debug output');
+Coco.log('testing debug output');
 ```
 
 ![Screenshot.](TestingOutput.png)
@@ -19,12 +19,12 @@ ChCo.log('testing debug output');
 Big colorful buffers incase you need a visual blurb somewhere...
 
 ```
-import { ChCo } from 'chroma-console';
+import { Coco } from 'chroma-console';
 
 (...)
 
-ChCo.start();
-ChCo.end();
+Coco.start();
+Coco.end();
 ```
 
 ![Screenshot.](TestingOutput2.png)
@@ -37,6 +37,8 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 
 ### TODO -
 
+-   bug - can't set color in browser
+-   fix the unit tests
 -   typescript types
 -   if you set the color wrong, error out
 -   github actions...? unit tests passing?

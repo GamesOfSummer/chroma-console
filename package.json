@@ -1,7 +1,7 @@
 {
     "name": "chroma-console",
-    "description": "Colorful output to the VSC Terminal",
-    "version": "1.0.25",
+    "description": "Coco, the whimsical debug output package",
+    "version": "1.0.27",
     "license": "MIT",
     "author": "Summer Tomaseski",
     "main": "src/index.js",
@@ -21,13 +21,10 @@
         "type": "git"
     },
     "keywords": [
+        "Coco",
         "chroma",
-        "terminal",
-        "console",
-        "cli",
         "log",
-        "logging",
-        "command line"
+        "logging"
     ],
     "devDependencies": {
         "@babel/parser": "^7.22.7",
