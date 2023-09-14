@@ -1,1 +1,11 @@
 language: node_js
+
+steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+          node-version: '18.x'
+    - run: npm install
+    - run: tsc src/index.ts
+    - run: npx jest
