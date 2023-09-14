@@ -1,43 +1,45 @@
 {
-  "name": "chroma-console",
-  "description": "Colorful output to the VSC Terminal",
-  "version": "1.0.7",
-  "license": "MIT",
-  "author": "Summer Tomaseski",
-  "main": "src/index.js",
-  "type": "module",
-  "scripts": {
-    "run": "tsc -t ES2020 src/index.ts && node src/index.js",
-    "⬇️ install-npm-packages": "npm install",
-    "___Global install NCU to run the commands below": "https://www.npmjs.com/package/npm-check-updates",
-    "🔍check-npm-packages": "ncu",
-    "⬇️update-npm-packages": "ncu -u",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git"
-  },
-  "keywords": [
-    "chroma",
-    "terminal",
-    "console",
-    "cli",
-    "log",
-    "logging",
-    "command line"
-  ],
-  "devDependencies": {
-    "@babel/preset-typescript": "^7.22.5",
-    "@jest/globals": "^29.6.1",
-    "@types/jest": "^29.5.3",
-    "eslint": "^8.45.0",
-    "prettier": "3.0.0",
-    "ts-jest": "^29.1.1",
-    "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "@types/gradient-string": "^1.1.2",
-    "gradient-string": "^2.0.2",
-    "tinygradient": "^1.1.5"
-  }
+    "name": "chroma-console",
+    "description": "Coco, the whimsical debug output package",
+    "version": "1.0.27",
+    "license": "MIT",
+    "author": "Summer Tomaseski",
+    "main": "src/index.js",
+    "type": "commonjs",
+    "scripts": {
+        "uberRun": "tsc src/index.ts && node src/index.js",
+        "run": "node src/index.js",
+        "build": "tsc src/index.ts",
+        "test": "npx jest",
+        "debug": "ts-node src/index.ts",
+        "⬇️ install-npm-packages": "npm install",
+        "___Global install NCU to run the commands below": "https://www.npmjs.com/package/npm-check-updates",
+        "🔍check-npm-packages": "ncu",
+        "⬇️update-npm-packages": "ncu -u"
+    },
+    "repository": {
+        "type": "git"
+    },
+    "keywords": [
+        "Coco",
+        "chroma",
+        "log",
+        "logging"
+    ],
+    "devDependencies": {
+        "@babel/parser": "^7.22.7",
+        "@babel/preset-env": "^7.22.9",
+        "@types/jest": "^29.5.3",
+        "babel-jest": "^29.6.2",
+        "eslint": "^8.46.0",
+        "jest": "^29.6.2",
+        "prettier": "3.0.1",
+        "ts-jest": "^29.1.1",
+        "typescript": "^5.1.6"
+    },
+    "dependencies": {
+        "@babel/core": "^7.22.9",
+        "tinygradient": "^1.1.5"
+    }
 }
+
