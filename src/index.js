@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coco = void 0;
 var tinygradient = require('tinygradient');
-var Coco = exports.Coco = /** @class */ (function () {
+var Coco = /** @class */ (function () {
     function Coco() {
         this.consoleRed = function (value) {
             console.log('\x1b[0;31m', value);
@@ -78,7 +78,6 @@ var Coco = exports.Coco = /** @class */ (function () {
         Coco.formatString(holder);
     };
     Coco.formatString = function (input) {
-        var _a, _c;
         var backupGraident = Coco.gradient;
         if (input.length == 0) {
             return input;
@@ -88,7 +87,7 @@ var Coco = exports.Coco = /** @class */ (function () {
             var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
-                var _r = (_a = editedGradient[i].color, _a._r), _g = _a._g, _b = _a._b;
+                var _a = editedGradient[i].color, _r = _a._r, _g = _a._g, _b = _a._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
             output += '\x1b[0m';
@@ -103,7 +102,7 @@ var Coco = exports.Coco = /** @class */ (function () {
             var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
-                var _r = (_c = colorArray[i], _c._r), _g = _c._g, _b = _c._b;
+                var _c = colorArray[i], _r = _c._r, _g = _c._g, _b = _c._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
             output += '\x1B[0m';
@@ -183,4 +182,5 @@ var Coco = exports.Coco = /** @class */ (function () {
     };
     return Coco;
 }());
-//Coco.debug();
+exports.Coco = Coco;
+Coco.debug();
