@@ -4,6 +4,8 @@ _(for Terminal or Google Chrome!)_
 
 A simple, yet opinionated, helper package for logging (colorful!) output to the console.
 
+[![Build Status](https://app.travis-ci.com/GamesOfSummer/chroma-console.svg?branch=main)](https://app.travis-ci.com/GamesOfSummer/chroma-console)
+
 **Rainbow font, with one import.** No configuration needed, just works.
 
 ```
