@@ -37,7 +37,6 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 
 ### TODO -
 
--   bug - can't set color in browser
 -   fix the unit tests
 -   typescript types
 -   if you set the color wrong, error out
