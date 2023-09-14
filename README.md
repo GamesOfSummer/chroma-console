@@ -1,6 +1,7 @@
 # Chroma Console, aka 'Coco'
 
 [![Build Status](https://app.travis-ci.com/GamesOfSummer/chroma-console.svg?branch=main)](https://app.travis-ci.com/GamesOfSummer/chroma-console)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Rainbow font, with one import.** No configuration needed, just works for terminal or Google Chrome.
 
