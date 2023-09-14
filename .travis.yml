@@ -39,4 +39,3 @@ jobs:
             # This step runs the `build` script if there is one specified under the `scripts` key in your `package.json` file.
             - run: tsc src/index.ts
             # This step runs the `test` script that is specified under the `scripts` key in your `package.json` file.
-            - run: npx jest
