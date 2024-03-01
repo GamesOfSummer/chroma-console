@@ -1,5 +1,29 @@
 var tinygradient = require('tinygradient');
 
+const sampleJson = {
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
+            }
+        }
+    }
+}
+
+
 export class Coco {
     static gradientShorthands = {
         purplehaze: ['#9900ff', '#cc99ff'],
@@ -78,7 +102,7 @@ export class Coco {
         }
     }
 
-    static log(inputString: string) {
+    static log(inputString: any) {
         if (Coco.isBrowser()) {
             console.log(this.formatString(inputString));
         } else {
@@ -91,7 +115,15 @@ export class Coco {
         Coco.formatString(holder);
     }
 
-    static formatString(input: string) {
+    static formatString(input: any) {
+
+
+if(typeof input === "object")
+{
+    input = JSON.stringify(input,null,2);
+}
+
+
         const backupGraident = Coco.gradient;
 
         if (input.length == 0) {
@@ -213,7 +245,11 @@ export class Coco {
 
         Coco.setColor('firewood');
         Coco.testForCharacterLengths();
+
+        
     };
 }
 
+
+Coco.log(sampleJson)
 //Coco.debug();;
