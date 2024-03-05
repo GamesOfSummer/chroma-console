@@ -4,6 +4,8 @@
 
 **Rainbow font, with one import.** No configuration needed, just works for terminal or Google Chrome.
 
+![alt text](https://github.com/GamesOfSummer/chroma-console/blob/main/Preview.gif?raw=true)
+
 ```
 import { Coco } from 'chroma-console';
 
@@ -12,7 +14,7 @@ import { Coco } from 'chroma-console';
 Coco.log('testing debug output');
 ```
 
-![ImageAlt](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput.png)
+![alt text](https://github.com/GamesOfSummer/chroma-console/blob/main/TestingOutput.png?raw=true)
 
 Big colorful buffers incase you need a visual blurb somewhere...
 
@@ -25,7 +27,7 @@ Coco.start();
 Coco.end();
 ```
 
-![ImageAlt](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput2.png)
+![alt text](https://github.com/GamesOfSummer/chroma-console/blob/main/TestingOutput2.png?raw=true)
 
 Uses [🔗 gradient-string](https://github.com/bokub/gradient-string)
 
