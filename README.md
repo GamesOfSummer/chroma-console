@@ -12,7 +12,7 @@ import { Coco } from 'chroma-console';
 Coco.log('testing debug output');
 ```
 
-![Screenshot.](TestingOutput.png)
+![Screenshot.](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput.png?raw=true)
 
 Big colorful buffers incase you need a visual blurb somewhere...
 
@@ -25,7 +25,7 @@ Coco.start();
 Coco.end();
 ```
 
-![Screenshot.](TestingOutput2.png)
+![Screenshot.](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput2.png?raw=true)
 
 Uses [🔗 gradient-string](https://github.com/bokub/gradient-string)
 
@@ -35,9 +35,7 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 
 ### TODO -
 
--   fix the unit tests
 -   typescript types
 -   if you set the color wrong, error out
--   github actions...? unit tests passing?
 -   different colors (red, orange, yellow, etc) / unit tests for this
 -   bool flag helper

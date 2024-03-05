@@ -3,26 +3,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coco = void 0;
 var tinygradient = require('tinygradient');
 var sampleJson = {
-    "glossary": {
-        "title": "example glossary",
-        "GlossDiv": {
-            "title": "S",
-            "GlossList": {
-                "GlossEntry": {
-                    "ID": "SGML",
-                    "SortAs": "SGML",
-                    "GlossTerm": "Standard Generalized Markup Language",
-                    "Acronym": "SGML",
-                    "Abbrev": "ISO 8879:1986",
-                    "GlossDef": {
-                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
-                        "GlossSeeAlso": ["GML", "XML"]
+    glossary: {
+        title: 'example glossary',
+        GlossDiv: {
+            title: 'S',
+            GlossList: {
+                GlossEntry: {
+                    ID: 'SGML',
+                    SortAs: 'SGML',
+                    GlossTerm: 'Standard Generalized Markup Language',
+                    Acronym: 'SGML',
+                    Abbrev: 'ISO 8879:1986',
+                    GlossDef: {
+                        para: 'A meta-markup language, used to create markup languages such as DocBook.',
+                        GlossSeeAlso: ['GML', 'XML'],
                     },
-                    "GlossSee": "markup"
-                }
-            }
-        }
-    }
+                    GlossSee: 'markup',
+                },
+            },
+        },
+    },
 };
 var Coco = /** @class */ (function () {
     function Coco() {
@@ -100,7 +100,7 @@ var Coco = /** @class */ (function () {
         Coco.formatString(holder);
     };
     Coco.formatString = function (input) {
-        if (typeof input === "object") {
+        if (typeof input === 'object') {
             input = JSON.stringify(input, null, 2);
         }
         var backupGraident = Coco.gradient;
@@ -204,9 +204,11 @@ var Coco = /** @class */ (function () {
         Coco.testForCharacterLengths();
         Coco.setColor('firewood');
         Coco.testForCharacterLengths();
+        Coco.setColor('softrainbow');
+        Coco.testForCharacterLengths();
+        Coco.log(sampleJson);
     };
     return Coco;
 }());
 exports.Coco = Coco;
-Coco.log(sampleJson);
-//Coco.debug();;
+Coco.debug();
