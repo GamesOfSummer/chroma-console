@@ -12,7 +12,7 @@ import { Coco } from 'chroma-console';
 Coco.log('testing debug output');
 ```
 
-![Screenshot.](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput.png?raw=true)
+![ImageAlt](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput.png?raw=true)
 
 Big colorful buffers incase you need a visual blurb somewhere...
 
@@ -25,7 +25,7 @@ Coco.start();
 Coco.end();
 ```
 
-![Screenshot.](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput2.png?raw=true)
+![ImageAlt](https://raw.githubusercontent.com/GamesOfSummer/chroma-console/blob/main/TestingOutput2.png?raw=true)
 
 Uses [🔗 gradient-string](https://github.com/bokub/gradient-string)
 
