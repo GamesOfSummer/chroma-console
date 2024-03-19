@@ -189,6 +189,15 @@ export class Coco {
         console.log('\x1b[38;2;179;124;255m', value);
     };
 
+    static consoleTestPurple = (value: string) => {
+        // Define ANSI escape codes for text color
+        const purpleColor = "\x1b[35m";
+        const resetColor = "\x1b[0m";
+
+        // Print purple text
+        console.log(purpleColor + value + resetColor);
+    };
+
     consoleWhite = (value: string) => {
         console.log('\x1b[0m', value);
     };

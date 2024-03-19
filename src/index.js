@@ -171,6 +171,13 @@ var Coco = /** @class */ (function () {
     Coco.consolePurple = function (value) {
         console.log('\x1b[38;2;179;124;255m', value);
     };
+    Coco.consoleTestPurple = function (value) {
+        // Define ANSI escape codes for text color
+        var purpleColor = "\x1b[35m";
+        var resetColor = "\x1b[0m";
+        // Print purple text
+        console.log(purpleColor + value + resetColor);
+    };
     Coco.start = function () {
         Coco.log('■▣'.repeat(50));
         Coco.log('■▣'.repeat(21) + ' Starting up~ ' + '■▣'.repeat(22));
