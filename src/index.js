@@ -3,26 +3,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coco = void 0;
 var tinygradient = require('tinygradient');
 var sampleJson = {
-    glossary: {
-        title: 'example glossary',
-        GlossDiv: {
-            title: 'S',
-            GlossList: {
-                GlossEntry: {
-                    ID: 'SGML',
-                    SortAs: 'SGML',
-                    GlossTerm: 'Standard Generalized Markup Language',
-                    Acronym: 'SGML',
-                    Abbrev: 'ISO 8879:1986',
-                    GlossDef: {
-                        para: 'A meta-markup language, used to create markup languages such as DocBook.',
-                        GlossSeeAlso: ['GML', 'XML'],
+    "glossary": {
+        "title": "example glossary",
+        "GlossDiv": {
+            "title": "S",
+            "GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+                    "SortAs": "SGML",
+                    "GlossTerm": "Standard Generalized Markup Language",
+                    "Acronym": "SGML",
+                    "Abbrev": "ISO 8879:1986",
+                    "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                        "GlossSeeAlso": ["GML", "XML"]
                     },
-                    GlossSee: 'markup',
-                },
-            },
-        },
-    },
+                    "GlossSee": "markup"
+                }
+            }
+        }
+    }
 };
 var Coco = /** @class */ (function () {
     function Coco() {
@@ -40,9 +40,6 @@ var Coco = /** @class */ (function () {
         };
         this.consoleBlue = function (value) {
             console.log('\x1b[0;36m', value);
-        };
-        this.consolePurple = function (value) {
-            console.log('\x1b[38;2;179;124;255m', value);
         };
         this.consoleWhite = function (value) {
             console.log('\x1b[0m', value);
@@ -100,7 +97,7 @@ var Coco = /** @class */ (function () {
         Coco.formatString(holder);
     };
     Coco.formatString = function (input) {
-        if (typeof input === 'object') {
+        if (typeof input === "object") {
             input = JSON.stringify(input, null, 2);
         }
         var backupGraident = Coco.gradient;
@@ -171,6 +168,9 @@ var Coco = /** @class */ (function () {
     };
     Coco.gradient = tinygradient(Coco.gradientShorthands.softrainbow);
     Coco.loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    Coco.consolePurple = function (value) {
+        console.log('\x1b[38;2;179;124;255m', value);
+    };
     Coco.start = function () {
         Coco.log('■▣'.repeat(50));
         Coco.log('■▣'.repeat(21) + ' Starting up~ ' + '■▣'.repeat(22));
@@ -204,11 +204,9 @@ var Coco = /** @class */ (function () {
         Coco.testForCharacterLengths();
         Coco.setColor('firewood');
         Coco.testForCharacterLengths();
-        Coco.setColor('softrainbow');
-        Coco.testForCharacterLengths();
-        Coco.log(sampleJson);
     };
     return Coco;
 }());
 exports.Coco = Coco;
-Coco.debug();
+//Coco.log(sampleJson)
+//Coco.debug();;

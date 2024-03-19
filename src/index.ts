@@ -1,27 +1,28 @@
 var tinygradient = require('tinygradient');
 
 const sampleJson = {
-    glossary: {
-        title: 'example glossary',
-        GlossDiv: {
-            title: 'S',
-            GlossList: {
-                GlossEntry: {
-                    ID: 'SGML',
-                    SortAs: 'SGML',
-                    GlossTerm: 'Standard Generalized Markup Language',
-                    Acronym: 'SGML',
-                    Abbrev: 'ISO 8879:1986',
-                    GlossDef: {
-                        para: 'A meta-markup language, used to create markup languages such as DocBook.',
-                        GlossSeeAlso: ['GML', 'XML'],
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
                     },
-                    GlossSee: 'markup',
-                },
-            },
-        },
-    },
-};
+					"GlossSee": "markup"
+                }
+            }
+        }
+    }
+}
+
 
 export class Coco {
     static gradientShorthands = {
@@ -115,9 +116,11 @@ export class Coco {
     }
 
     static formatString(input: any) {
-        if (typeof input === 'object') {
-            input = JSON.stringify(input, null, 2);
-        }
+
+    if(typeof input === "object")
+    {
+        input = JSON.stringify(input,null,2);
+    }
 
         const backupGraident = Coco.gradient;
 
@@ -182,7 +185,7 @@ export class Coco {
         console.log('\x1b[0;36m', value);
     };
 
-    consolePurple = (value: string) => {
+    static consolePurple = (value: string) => {
         console.log('\x1b[38;2;179;124;255m', value);
     };
 
@@ -241,11 +244,10 @@ export class Coco {
         Coco.setColor('firewood');
         Coco.testForCharacterLengths();
 
-        Coco.setColor('softrainbow');
-        Coco.testForCharacterLengths();
-
-        Coco.log(sampleJson);
+        
     };
 }
 
-Coco.debug();
+
+//Coco.log(sampleJson)
+//Coco.debug();;
