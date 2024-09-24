@@ -1,28 +1,27 @@
 var tinygradient = require('tinygradient');
 
 const sampleJson = {
-    "glossary": {
-        "title": "example glossary",
-		"GlossDiv": {
-            "title": "S",
-			"GlossList": {
-                "GlossEntry": {
-                    "ID": "SGML",
-					"SortAs": "SGML",
-					"GlossTerm": "Standard Generalized Markup Language",
-					"Acronym": "SGML",
-					"Abbrev": "ISO 8879:1986",
-					"GlossDef": {
-                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
-						"GlossSeeAlso": ["GML", "XML"]
+    glossary: {
+        title: 'example glossary',
+        GlossDiv: {
+            title: 'S',
+            GlossList: {
+                GlossEntry: {
+                    ID: 'SGML',
+                    SortAs: 'SGML',
+                    GlossTerm: 'Standard Generalized Markup Language',
+                    Acronym: 'SGML',
+                    Abbrev: 'ISO 8879:1986',
+                    GlossDef: {
+                        para: 'A meta-markup language, used to create markup languages such as DocBook.',
+                        GlossSeeAlso: ['GML', 'XML'],
                     },
-					"GlossSee": "markup"
-                }
-            }
-        }
-    }
-}
-
+                    GlossSee: 'markup',
+                },
+            },
+        },
+    },
+};
 
 export class Coco {
     static gradientShorthands = {
@@ -103,10 +102,11 @@ export class Coco {
     }
 
     static log(inputString: any) {
-        if (Coco.isBrowser()) {
+        if (true || Coco.isBrowser()) {
             console.log(this.formatString(inputString));
         } else {
-            console.log('\x1B[0m', this.formatString(inputString));
+            //console.log('\x1B[0m', this.formatString(inputString));
+            console.log('\x1b[0m', this.formatString(inputString));
         }
     }
 
@@ -116,11 +116,9 @@ export class Coco {
     }
 
     static formatString(input: any) {
-
-    if(typeof input === "object")
-    {
-        input = JSON.stringify(input,null,2);
-    }
+        if (typeof input === 'object') {
+            input = JSON.stringify(input, null, 2);
+        }
 
         const backupGraident = Coco.gradient;
 
@@ -153,9 +151,7 @@ export class Coco {
             for (let i = 0; i < input.length; i++) {
                 // @ts-ignore
                 var { _r, _g, _b } = colorArray[i];
-                output += `\x1B[38;2;${Math.round(_r)};${Math.round(
-                    _g
-                )};${Math.round(_b)}m${input[i]}`;
+                output += `\x1B[38;2;${Math.round(_r)};${Math.round(_g)};${Math.round(_b)}m${input[i]}`;
             }
 
             output += '\x1B[0m';
@@ -181,7 +177,7 @@ export class Coco {
         console.log('\x1b[0;32m', value);
     };
 
-    consoleBlue = (value: string) => {
+    static consoleBlue = (value: string) => {
         console.log('\x1b[0;36m', value);
     };
 
@@ -189,20 +185,11 @@ export class Coco {
         console.log('\x1b[38;2;179;124;255m', value);
     };
 
-    static consoleTestPurple = (value: string) => {
-        // Define ANSI escape codes for text color
-        const purpleColor = "\x1b[35m";
-        const resetColor = "\x1b[0m";
-
-        // Print purple text
-        console.log(purpleColor + value + resetColor);
-    };
-
     consoleWhite = (value: string) => {
         console.log('\x1b[0m', value);
     };
 
-    consoleRedOrGreen = (value: any) => {
+    static consoleRedOrGreen = (value: any) => {
         let str = value.replace('!', '').replace('!', '') + '';
 
         if (eval(value)) {
@@ -252,11 +239,54 @@ export class Coco {
 
         Coco.setColor('firewood');
         Coco.testForCharacterLengths();
-
-        
     };
 }
 
-
-//Coco.log(sampleJson)
+//Coco.log(sampleJson);
 //Coco.debug();
+
+// Coco.testForCharacterLengths();
+
+var string = 'support for non-truecolor terminals';
+var input = Array.from(string);
+
+var colorArrayIndex = 0;
+var colorArray = [206, 217, 26, 125];
+let output = '';
+
+for (let i = 0; i < input.length; i++) {
+    colorArrayIndex++;
+    if (colorArrayIndex > colorArray.length - 1) {
+        colorArrayIndex = 0;
+    }
+    console.log(input[i] + ' - ' + colorArrayIndex);
+
+    output += `\x1B[38;5;${colorArray[colorArrayIndex]}m${input[i]}`;
+}
+
+console.log(output);
+
+console.log('\x1b[38;5;206m PINK????');
+console.log('\x1b[38;5;207m PINK????');
+console.log('\x1b[38;5;217m PINK????');
+console.log('\x1b[38;5;26m PINK????');
+console.log('\x1b[38;5;125m PINK????');
+
+console.log('\x1B[31;1;4m', 'test test test');
+console.log('\x1B[38;2;179;124;255m', 'purple text 1');
+
+console.log('\x1b[38;2;255;100;0m', 'orange test');
+
+Coco.log('test');
+
+console.log('\x1B[38;2;179;124;255m', 'purple text 1');
+Coco.consolePurple('purple text 2');
+
+Coco.consoleRedOrGreen('0');
+Coco.consoleRedOrGreen('1');
+
+console.log('\x1b[0m', 'white text');
+console.log('\x1B[0m', 'white text 2 with B');
+
+console.log('\x1b[0;36m', 'blue');
+Coco.consoleBlue('blue');

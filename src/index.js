@@ -3,26 +3,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coco = void 0;
 var tinygradient = require('tinygradient');
 var sampleJson = {
-    "glossary": {
-        "title": "example glossary",
-        "GlossDiv": {
-            "title": "S",
-            "GlossList": {
-                "GlossEntry": {
-                    "ID": "SGML",
-                    "SortAs": "SGML",
-                    "GlossTerm": "Standard Generalized Markup Language",
-                    "Acronym": "SGML",
-                    "Abbrev": "ISO 8879:1986",
-                    "GlossDef": {
-                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
-                        "GlossSeeAlso": ["GML", "XML"]
+    glossary: {
+        title: 'example glossary',
+        GlossDiv: {
+            title: 'S',
+            GlossList: {
+                GlossEntry: {
+                    ID: 'SGML',
+                    SortAs: 'SGML',
+                    GlossTerm: 'Standard Generalized Markup Language',
+                    Acronym: 'SGML',
+                    Abbrev: 'ISO 8879:1986',
+                    GlossDef: {
+                        para: 'A meta-markup language, used to create markup languages such as DocBook.',
+                        GlossSeeAlso: ['GML', 'XML'],
                     },
-                    "GlossSee": "markup"
-                }
-            }
-        }
-    }
+                    GlossSee: 'markup',
+                },
+            },
+        },
+    },
 };
 var Coco = /** @class */ (function () {
     function Coco() {
@@ -38,20 +38,8 @@ var Coco = /** @class */ (function () {
         this.consoleGreen = function (value) {
             console.log('\x1b[0;32m', value);
         };
-        this.consoleBlue = function (value) {
-            console.log('\x1b[0;36m', value);
-        };
         this.consoleWhite = function (value) {
             console.log('\x1b[0m', value);
-        };
-        this.consoleRedOrGreen = function (value) {
-            var str = value.replace('!', '').replace('!', '') + '';
-            if (eval(value)) {
-                console.log('\x1b[0;32m', str + ' => ' + eval(value));
-            }
-            else {
-                console.log('\x1b[0;31m', str + ' => ' + eval(value));
-            }
         };
     }
     Coco.isBrowser = function () {
@@ -85,11 +73,12 @@ var Coco = /** @class */ (function () {
         }
     };
     Coco.log = function (inputString) {
-        if (Coco.isBrowser()) {
+        if (true || Coco.isBrowser()) {
             console.log(this.formatString(inputString));
         }
         else {
-            console.log('\x1B[0m', this.formatString(inputString));
+            //console.log('\x1B[0m', this.formatString(inputString));
+            console.log('\x1b[0m', this.formatString(inputString));
         }
     };
     Coco.prototype.buffer = function () {
@@ -97,7 +86,7 @@ var Coco = /** @class */ (function () {
         Coco.formatString(holder);
     };
     Coco.formatString = function (input) {
-        if (typeof input === "object") {
+        if (typeof input === 'object') {
             input = JSON.stringify(input, null, 2);
         }
         var backupGraident = Coco.gradient;
@@ -106,14 +95,14 @@ var Coco = /** @class */ (function () {
         }
         else if (input.length < 3) {
             var editedGradient = Coco.gradient.stops.slice(0, input.length);
-            var output = '';
+            var output_1 = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
                 var _a = editedGradient[i].color, _r = _a._r, _g = _a._g, _b = _a._b;
-                output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
+                output_1 += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
-            output += '\x1b[0m';
-            return output;
+            output_1 += '\x1b[0m';
+            return output_1;
         }
         else {
             if (input.length < Coco.gradient.stops.length) {
@@ -121,15 +110,15 @@ var Coco = /** @class */ (function () {
                 Coco.gradient = tinygradient(holder2);
             }
             var colorArray = Coco.gradient.rgb(input.length);
-            var output = '';
+            var output_2 = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
                 var _c = colorArray[i], _r = _c._r, _g = _c._g, _b = _c._b;
-                output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
+                output_2 += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
-            output += '\x1B[0m';
+            output_2 += '\x1B[0m';
             Coco.gradient = backupGraident;
-            return output;
+            return output_2;
         }
     };
     Coco.gradientShorthands = {
@@ -168,15 +157,20 @@ var Coco = /** @class */ (function () {
     };
     Coco.gradient = tinygradient(Coco.gradientShorthands.softrainbow);
     Coco.loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    Coco.consoleBlue = function (value) {
+        console.log('\x1b[0;36m', value);
+    };
     Coco.consolePurple = function (value) {
         console.log('\x1b[38;2;179;124;255m', value);
     };
-    Coco.consoleTestPurple = function (value) {
-        // Define ANSI escape codes for text color
-        var purpleColor = "\x1b[35m";
-        var resetColor = "\x1b[0m";
-        // Print purple text
-        console.log(purpleColor + value + resetColor);
+    Coco.consoleRedOrGreen = function (value) {
+        var str = value.replace('!', '').replace('!', '') + '';
+        if (eval(value)) {
+            console.log('\x1b[0;32m', str + ' => ' + eval(value));
+        }
+        else {
+            console.log('\x1b[0;31m', str + ' => ' + eval(value));
+        }
     };
     Coco.start = function () {
         Coco.log('■▣'.repeat(50));
@@ -215,5 +209,37 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-//Coco.log(sampleJson)
+//Coco.log(sampleJson);
 //Coco.debug();
+// Coco.testForCharacterLengths();
+var string = 'support for non-truecolor terminals';
+var input = Array.from(string);
+var colorArrayIndex = 0;
+var colorArray = [206, 217, 26, 125];
+var output = '';
+for (var i = 0; i < input.length; i++) {
+    colorArrayIndex++;
+    if (colorArrayIndex > colorArray.length - 1) {
+        colorArrayIndex = 0;
+    }
+    console.log(input[i] + ' - ' + colorArrayIndex);
+    output += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(input[i]);
+}
+console.log(output);
+console.log('\x1b[38;5;206m PINK????');
+console.log('\x1b[38;5;207m PINK????');
+console.log('\x1b[38;5;217m PINK????');
+console.log('\x1b[38;5;26m PINK????');
+console.log('\x1b[38;5;125m PINK????');
+console.log('\x1B[31;1;4m', 'test test test');
+console.log('\x1B[38;2;179;124;255m', 'purple text 1');
+console.log('\x1b[38;2;255;100;0m', 'orange test');
+Coco.log('test');
+console.log('\x1B[38;2;179;124;255m', 'purple text 1');
+Coco.consolePurple('purple text 2');
+Coco.consoleRedOrGreen('0');
+Coco.consoleRedOrGreen('1');
+console.log('\x1b[0m', 'white text');
+console.log('\x1B[0m', 'white text 2 with B');
+console.log('\x1b[0;36m', 'blue');
+Coco.consoleBlue('blue');

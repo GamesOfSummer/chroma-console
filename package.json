@@ -7,7 +7,7 @@
     "main": "src/index.js",
     "type": "commonjs",
     "scripts": {
-        "uberRun": "tsc src/index.ts && node src/index.js",
+        "buildAndRun": "tsc src/index.ts && node src/index.js",
         "run": "node src/index.js",
         "build": "tsc src/index.ts",
         "test": "npx jest",
