@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coco = void 0;
 var tinygradient = require('tinygradient');
+var os = require('os');
 var sampleJson = {
     glossary: {
         title: 'example glossary',
@@ -73,17 +74,40 @@ var Coco = /** @class */ (function () {
         }
     };
     Coco.log = function (inputString) {
-        if (true || Coco.isBrowser()) {
+        if (Coco.isBrowser()) {
             console.log(this.formatString(inputString));
         }
+        else if (os.platform() === 'win32') {
+            console.log('\x1B[0m', this.formatString(inputString));
+        }
         else {
-            //console.log('\x1B[0m', this.formatString(inputString));
-            console.log('\x1b[0m', this.formatString(inputString));
+            console.log('\x1B[0m', this.formatStringForMac(inputString));
         }
     };
     Coco.prototype.buffer = function () {
         var holder = '■▣'.repeat(50);
         Coco.formatString(holder);
+    };
+    Coco.formatStringForMac = function (input) {
+        if (typeof input === 'object') {
+            input = JSON.stringify(input, null, 2);
+        }
+        var inputArray = Array.from(input);
+        var colorArrayIndex = 0;
+        var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117];
+        var colorArray = rainbowColorArray;
+        var output = '';
+        for (var i = 0; i < inputArray.length; i++) {
+            if (input[i] !== '') {
+                colorArrayIndex++;
+                if (colorArrayIndex > colorArray.length - 1) {
+                    colorArrayIndex = 0;
+                }
+                output += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(inputArray[i]);
+            }
+        }
+        output += '\x1B[0m';
+        return output;
     };
     Coco.formatString = function (input) {
         if (typeof input === 'object') {
@@ -95,14 +119,14 @@ var Coco = /** @class */ (function () {
         }
         else if (input.length < 3) {
             var editedGradient = Coco.gradient.stops.slice(0, input.length);
-            var output_1 = '';
+            var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
                 var _a = editedGradient[i].color, _r = _a._r, _g = _a._g, _b = _a._b;
-                output_1 += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
+                output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
-            output_1 += '\x1b[0m';
-            return output_1;
+            output += '\x1b[0m';
+            return output;
         }
         else {
             if (input.length < Coco.gradient.stops.length) {
@@ -110,15 +134,15 @@ var Coco = /** @class */ (function () {
                 Coco.gradient = tinygradient(holder2);
             }
             var colorArray = Coco.gradient.rgb(input.length);
-            var output_2 = '';
+            var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
                 var _c = colorArray[i], _r = _c._r, _g = _c._g, _b = _c._b;
-                output_2 += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
+                output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
-            output_2 += '\x1B[0m';
+            output += '\x1B[0m';
             Coco.gradient = backupGraident;
-            return output_2;
+            return output;
         }
     };
     Coco.gradientShorthands = {
@@ -209,27 +233,7 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-//Coco.log(sampleJson);
-//Coco.debug();
-// Coco.testForCharacterLengths();
-var string = 'support for non-truecolor terminals';
-var input = Array.from(string);
-var colorArrayIndex = 0;
-var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117, 189204];
-var colorArray = rainbowColorArray;
-var output = '';
-for (var i = 0; i < input.length; i++) {
-    if (input[i] !== '') {
-        colorArrayIndex++;
-        if (colorArrayIndex > colorArray.length - 1) {
-            colorArrayIndex = 0;
-        }
-        console.log(input[i] + ' - ' + colorArrayIndex);
-        output += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(input[i]);
-    }
-}
-console.log(output);
-console.log('\x1b[38;5;206m PINK????');
-Coco.log('test');
+Coco.log(sampleJson);
+Coco.debug();
 Coco.consoleRedOrGreen('0');
 Coco.consoleRedOrGreen('1');

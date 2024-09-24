@@ -1,4 +1,5 @@
 var tinygradient = require('tinygradient');
+var os = require('os');
 
 const sampleJson = {
     glossary: {
@@ -102,17 +103,43 @@ export class Coco {
     }
 
     static log(inputString: any) {
-        if (true || Coco.isBrowser()) {
+        if (Coco.isBrowser()) {
             console.log(this.formatString(inputString));
+        } else if (os.platform() === 'win32') {
+            console.log('\x1B[0m', this.formatString(inputString));
         } else {
-            //console.log('\x1B[0m', this.formatString(inputString));
-            console.log('\x1b[0m', this.formatString(inputString));
+            console.log('\x1B[0m', this.formatStringForMac(inputString));
         }
     }
 
     buffer() {
         const holder = '■▣'.repeat(50);
         Coco.formatString(holder);
+    }
+
+    static formatStringForMac(input: any) {
+        if (typeof input === 'object') {
+            input = JSON.stringify(input, null, 2);
+        }
+
+        var inputArray = Array.from(input);
+        var colorArrayIndex = 0;
+        var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117];
+        var colorArray = rainbowColorArray;
+        let output = '';
+
+        for (let i = 0; i < inputArray.length; i++) {
+            if (input[i] !== '') {
+                colorArrayIndex++;
+                if (colorArrayIndex > colorArray.length - 1) {
+                    colorArrayIndex = 0;
+                }
+                output += `\x1B[38;5;${colorArray[colorArrayIndex]}m${inputArray[i]}`;
+            }
+        }
+
+        output += '\x1B[0m';
+        return output;
     }
 
     static formatString(input: any) {
@@ -242,37 +269,8 @@ export class Coco {
     };
 }
 
-//Coco.log(sampleJson);
-//Coco.debug();
-
-// Coco.testForCharacterLengths();
-
-var string = 'support for non-truecolor terminals';
-var input = Array.from(string);
-
-var colorArrayIndex = 0;
-
-var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117, 189204];
-
-var colorArray = rainbowColorArray;
-
-let output = '';
-
-for (let i = 0; i < input.length; i++) {
-    if (input[i] !== '') {
-        colorArrayIndex++;
-        if (colorArrayIndex > colorArray.length - 1) {
-            colorArrayIndex = 0;
-        }
-        output += `\x1B[38;5;${colorArray[colorArrayIndex]}m${input[i]}`;
-    }
-}
-
-console.log(output);
-
-console.log('\x1b[38;5;206m PINK????');
-
-Coco.log('test');
+Coco.log(sampleJson);
+Coco.debug();
 
 Coco.consoleRedOrGreen('0');
 Coco.consoleRedOrGreen('1');
