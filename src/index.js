@@ -215,31 +215,21 @@ exports.Coco = Coco;
 var string = 'support for non-truecolor terminals';
 var input = Array.from(string);
 var colorArrayIndex = 0;
-var colorArray = [206, 217, 26, 125];
+var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117, 189204];
+var colorArray = rainbowColorArray;
 var output = '';
 for (var i = 0; i < input.length; i++) {
-    colorArrayIndex++;
-    if (colorArrayIndex > colorArray.length - 1) {
-        colorArrayIndex = 0;
+    if (input[i] !== '') {
+        colorArrayIndex++;
+        if (colorArrayIndex > colorArray.length - 1) {
+            colorArrayIndex = 0;
+        }
+        console.log(input[i] + ' - ' + colorArrayIndex);
+        output += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(input[i]);
     }
-    console.log(input[i] + ' - ' + colorArrayIndex);
-    output += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(input[i]);
 }
 console.log(output);
 console.log('\x1b[38;5;206m PINK????');
-console.log('\x1b[38;5;207m PINK????');
-console.log('\x1b[38;5;217m PINK????');
-console.log('\x1b[38;5;26m PINK????');
-console.log('\x1b[38;5;125m PINK????');
-console.log('\x1B[31;1;4m', 'test test test');
-console.log('\x1B[38;2;179;124;255m', 'purple text 1');
-console.log('\x1b[38;2;255;100;0m', 'orange test');
 Coco.log('test');
-console.log('\x1B[38;2;179;124;255m', 'purple text 1');
-Coco.consolePurple('purple text 2');
 Coco.consoleRedOrGreen('0');
 Coco.consoleRedOrGreen('1');
-console.log('\x1b[0m', 'white text');
-console.log('\x1B[0m', 'white text 2 with B');
-console.log('\x1b[0;36m', 'blue');
-Coco.consoleBlue('blue');
