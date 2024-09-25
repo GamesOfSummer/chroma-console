@@ -41,7 +41,9 @@ export class Coco {
             '#2750f4',
             '#2914e5',
         ],
-        macGradient: [196, 202, 208, 226, 192, 159, 117],
+        macGradient: [
+            196, 160, 202, 166, 208, 172, 226, 190, 192, 195, 159, 177, 117,
+        ],
     };
 
     static gradientShorthands: CocoColor[] = [
@@ -92,7 +94,7 @@ export class Coco {
 
     static gradient = this.softRainbowDefault!;
 
-    static loren: string =
+    static lorenLipsumString: string =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
     constructor() {}
@@ -146,9 +148,9 @@ export class Coco {
 
         var inputArray = Array.from(input);
         var colorArrayIndex = 0;
-        var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117];
-        var colorArray = rainbowColorArray;
-        let output = '';
+
+        var colorArray = Coco.gradient.macGradient;
+        let outputString = '';
 
         for (let i = 0; i < inputArray.length; i++) {
             if (input[i] !== '') {
@@ -156,12 +158,12 @@ export class Coco {
                 if (colorArrayIndex > colorArray.length - 1) {
                     colorArrayIndex = 0;
                 }
-                output += `\x1B[38;5;${colorArray[colorArrayIndex]}m${inputArray[i]}`;
+                outputString += `\x1B[38;5;${colorArray[colorArrayIndex]}m${inputArray[i]}`;
             }
         }
 
-        output += '\x1B[0m';
-        return output;
+        outputString += '\x1B[0m';
+        return outputString;
     }
 
     static formatStringForWindows(input: any) {
@@ -261,6 +263,7 @@ export class Coco {
     }
 
     static start = () => {
+        console.log('');
         Coco.log('■▣'.repeat(50));
         Coco.log('■▣'.repeat(21) + ' Starting up~ ' + '■▣'.repeat(22));
         Coco.log('■▣'.repeat(50));
@@ -272,6 +275,7 @@ export class Coco {
         Coco.log('■▣'.repeat(50));
         Coco.log('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(21));
         Coco.log('■▣'.repeat(50));
+        console.log('');
     };
 
     static testForCharacterLengths = () => {
@@ -282,7 +286,7 @@ export class Coco {
         Coco.log('aaaa');
         Coco.log('aaaaa');
         Coco.log('aaaaaaaaaa');
-        Coco.log(Coco.loren);
+        Coco.log(Coco.lorenLipsumString);
         Coco.end();
     };
 
@@ -303,8 +307,20 @@ export class Coco {
     };
 }
 
-Coco.log(sampleJson);
-Coco.debug();
+//Coco.log(sampleJson);
+//Coco.debug();
 
-Coco.consoleRedOrGreen('0');
-Coco.consoleRedOrGreen('1');
+Coco.setColor('purplehaze');
+Coco.testForCharacterLengths();
+
+Coco.setColor('vaporwave');
+Coco.testForCharacterLengths();
+
+Coco.setColor('oldmovie');
+Coco.testForCharacterLengths();
+
+Coco.setColor('firewood');
+Coco.testForCharacterLengths();
+
+//Coco.consoleRedOrGreen('0');
+//Coco.consoleRedOrGreen('1');

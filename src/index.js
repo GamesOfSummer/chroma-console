@@ -50,43 +50,33 @@ var Coco = /** @class */ (function () {
             }
             return !!window;
         }
-        catch (_a) {
+        catch (_c) {
             return false;
         }
     };
     Coco.getGradient = function (keyword) {
         if (!keyword) {
-            return tinygradient(this.gradientShorthands.softrainbow);
+            return _a.softRainbowDefault;
         }
-        var gradient = Object.fromEntries(Object.entries(Coco.gradientShorthands).filter(function (_a) {
-            var key = _a[0];
-            return key.includes(keyword);
-        }));
-        var holder = Object.values(gradient);
-        return tinygradient(holder[0]);
+        var gradient = _a.gradientShorthands.find(function (obj) { return obj.name === keyword; });
+        if (gradient === undefined) {
+            return _a.softRainbowDefault;
+        }
+        return gradient;
     };
     Coco.setColor = function (keyword) {
-        if (keyword) {
-            Coco.gradient = this.getGradient(keyword);
-        }
-        else {
-            Coco.gradient = tinygradient(Coco.gradientShorthands.softrainbow);
-        }
+        _a.gradient = this.getGradient(keyword);
     };
     Coco.log = function (inputString) {
-        if (Coco.isBrowser()) {
-            console.log(this.formatString(inputString));
+        if (_a.isBrowser()) {
+            console.log(this.formatStringForWindows(inputString));
         }
         else if (os.platform() === 'win32') {
-            console.log('\x1B[0m', this.formatString(inputString));
+            console.log('\x1B[0m', this.formatStringForWindows(inputString));
         }
         else {
             console.log('\x1B[0m', this.formatStringForMac(inputString));
         }
-    };
-    Coco.prototype.buffer = function () {
-        var holder = '■▣'.repeat(50);
-        Coco.formatString(holder);
     };
     Coco.formatStringForMac = function (input) {
         if (typeof input === 'object') {
@@ -94,83 +84,67 @@ var Coco = /** @class */ (function () {
         }
         var inputArray = Array.from(input);
         var colorArrayIndex = 0;
-        var rainbowColorArray = [196, 202, 208, 226, 192, 159, 117];
-        var colorArray = rainbowColorArray;
-        var output = '';
+        var colorArray = _a.gradient.macGradient;
+        var outputString = '';
         for (var i = 0; i < inputArray.length; i++) {
             if (input[i] !== '') {
                 colorArrayIndex++;
                 if (colorArrayIndex > colorArray.length - 1) {
                     colorArrayIndex = 0;
                 }
-                output += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(inputArray[i]);
+                outputString += "\u001B[38;5;".concat(colorArray[colorArrayIndex], "m").concat(inputArray[i]);
             }
         }
-        output += '\x1B[0m';
-        return output;
+        outputString += '\x1B[0m';
+        return outputString;
     };
-    Coco.formatString = function (input) {
+    Coco.formatStringForWindows = function (input) {
+        var _c, _d, _e;
         if (typeof input === 'object') {
             input = JSON.stringify(input, null, 2);
         }
-        var backupGraident = Coco.gradient;
+        var backupGraident = _a.gradient;
         if (input.length == 0) {
             return input;
         }
         else if (input.length < 3) {
-            var editedGradient = Coco.gradient.stops.slice(0, input.length);
+            var editedGradient = _a.gradient.windowsGradient;
             var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
-                var _a = editedGradient[i].color, _r = _a._r, _g = _a._g, _b = _a._b;
+                var _f = editedGradient[i].color, _r = _f._r, _g = _f._g, _b = _f._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
             output += '\x1b[0m';
             return output;
         }
         else {
-            if (input.length < Coco.gradient.stops.length) {
-                var holder2 = Coco.gradient.stops.slice(0, input.length - 1);
-                Coco.gradient = tinygradient(holder2);
+            if (input.length <
+                tinygradient((_c = _a.gradient) === null || _c === void 0 ? void 0 : _c.windowsGradient).stops.length) {
+                var holder2 = tinygradient((_d = _a.gradient) === null || _d === void 0 ? void 0 : _d.windowsGradient).stops.slice(0, input.length - 1);
+                _a.gradient = tinygradient(holder2);
             }
-            var colorArray = Coco.gradient.rgb(input.length);
+            var colorArray = tinygradient((_e = _a.gradient) === null || _e === void 0 ? void 0 : _e.windowsGradient).rgb(input.length);
             var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
-                var _c = colorArray[i], _r = _c._r, _g = _c._g, _b = _c._b;
+                var _h = colorArray[i], _r = _h._r, _g = _h._g, _b = _h._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
             output += '\x1B[0m';
-            Coco.gradient = backupGraident;
+            _a.gradient = backupGraident;
             return output;
         }
     };
-    Coco.gradientShorthands = {
-        purplehaze: ['#9900ff', '#cc99ff'],
-        vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
-        oldmovie: [
-            '#F8F9FA',
-            '#E9ECEF',
-            '#DEE2E6',
-            '#CED4DA',
-            '#ADB5BD',
-            '#6C757D',
-            '#495057',
-            '#343A40',
-            '#212529',
-        ],
-        firewood: [
-            '#03071E',
-            '#370617',
-            '#6A040F',
-            '#9D0208',
-            '#D00000',
-            '#DC2F02',
-            '#E85D04',
-            '#F48C06',
-            '#FAA307',
-        ],
-        softrainbow: [
+    Coco.prototype.buffer = function () {
+        var holder = '■▣'.repeat(50);
+        _a.formatStringForWindows(holder);
+    };
+    var _a;
+    _a = Coco;
+    Coco.softRainbowDefault = {
+        name: 'softrainbow',
+        windowsGradient: [
             '#c1153d',
             '#dd901c',
             '#efe52d',
@@ -178,9 +152,55 @@ var Coco = /** @class */ (function () {
             '#2750f4',
             '#2914e5',
         ],
+        macGradient: [
+            196, 160, 202, 166, 208, 172, 226, 190, 192, 195, 159, 177, 117,
+        ],
     };
-    Coco.gradient = tinygradient(Coco.gradientShorthands.softrainbow);
-    Coco.loren = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
+    Coco.gradientShorthands = [
+        {
+            name: 'purplehaze',
+            windowsGradient: ['#9900ff', '#cc99ff'],
+            macGradient: [],
+        },
+        {
+            name: 'vaporwave',
+            windowsGradient: ['#0000ff', '#ff3399', '#00ffcc'],
+            macGradient: [],
+        },
+        {
+            name: 'oldmovie',
+            windowsGradient: [
+                '#F8F9FA',
+                '#E9ECEF',
+                '#DEE2E6',
+                '#CED4DA',
+                '#ADB5BD',
+                '#6C757D',
+                '#495057',
+                '#343A40',
+                '#212529',
+            ],
+            macGradient: [],
+        },
+        {
+            name: 'firewood',
+            windowsGradient: [
+                '#03071E',
+                '#370617',
+                '#6A040F',
+                '#9D0208',
+                '#D00000',
+                '#DC2F02',
+                '#E85D04',
+                '#F48C06',
+                '#FAA307',
+            ],
+            macGradient: [],
+        },
+        _a.softRainbowDefault,
+    ];
+    Coco.gradient = _a.softRainbowDefault;
+    Coco.lorenLipsumString = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
     Coco.consoleBlue = function (value) {
         console.log('\x1b[0;36m', value);
     };
@@ -197,43 +217,53 @@ var Coco = /** @class */ (function () {
         }
     };
     Coco.start = function () {
-        Coco.log('■▣'.repeat(50));
-        Coco.log('■▣'.repeat(21) + ' Starting up~ ' + '■▣'.repeat(22));
-        Coco.log('■▣'.repeat(50));
+        console.log('');
+        _a.log('■▣'.repeat(50));
+        _a.log('■▣'.repeat(21) + ' Starting up~ ' + '■▣'.repeat(22));
+        _a.log('■▣'.repeat(50));
         console.log('');
     };
     Coco.end = function () {
         console.log('');
-        Coco.log('■▣'.repeat(50));
-        Coco.log('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(21));
-        Coco.log('■▣'.repeat(50));
+        _a.log('■▣'.repeat(50));
+        _a.log('■▣'.repeat(21) + ' End of program ' + '■▣'.repeat(21));
+        _a.log('■▣'.repeat(50));
+        console.log('');
     };
     Coco.testForCharacterLengths = function () {
-        Coco.start();
-        Coco.log('a');
-        Coco.log('aa');
-        Coco.log('aaa');
-        Coco.log('aaaa');
-        Coco.log('aaaaa');
-        Coco.log('aaaaaaaaaa');
-        Coco.log(Coco.loren);
-        Coco.end();
+        _a.start();
+        _a.log('a');
+        _a.log('aa');
+        _a.log('aaa');
+        _a.log('aaaa');
+        _a.log('aaaaa');
+        _a.log('aaaaaaaaaa');
+        _a.log(_a.lorenLipsumString);
+        _a.end();
     };
     Coco.debug = function () {
-        Coco.testForCharacterLengths();
-        Coco.setColor('purplehaze');
-        Coco.testForCharacterLengths();
-        Coco.setColor('vaporwave');
-        Coco.testForCharacterLengths();
-        Coco.setColor('oldmovie');
-        Coco.testForCharacterLengths();
-        Coco.setColor('firewood');
-        Coco.testForCharacterLengths();
+        _a.testForCharacterLengths();
+        _a.setColor('purplehaze');
+        _a.testForCharacterLengths();
+        _a.setColor('vaporwave');
+        _a.testForCharacterLengths();
+        _a.setColor('oldmovie');
+        _a.testForCharacterLengths();
+        _a.setColor('firewood');
+        _a.testForCharacterLengths();
     };
     return Coco;
 }());
 exports.Coco = Coco;
-Coco.log(sampleJson);
-Coco.debug();
-Coco.consoleRedOrGreen('0');
-Coco.consoleRedOrGreen('1');
+//Coco.log(sampleJson);
+//Coco.debug();
+Coco.setColor('purplehaze');
+Coco.testForCharacterLengths();
+Coco.setColor('vaporwave');
+Coco.testForCharacterLengths();
+Coco.setColor('oldmovie');
+Coco.testForCharacterLengths();
+Coco.setColor('firewood');
+Coco.testForCharacterLengths();
+//Coco.consoleRedOrGreen('0');
+//Coco.consoleRedOrGreen('1');
