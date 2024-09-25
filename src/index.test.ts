@@ -4,7 +4,7 @@ import tinygradient from 'tinygradient';
 
 describe('Default colors', () => {
     test('Defaults to Soft Rainbow', () => {
-        var holder = Coco.formatString('----');
+        var holder = Coco.formatStringForWindows('----');
         expect(Coco.gradient).toStrictEqual(
             tinygradient(Coco.gradientShorthands.softrainbow)
         );
@@ -27,12 +27,12 @@ describe('Default colors', () => {
 
 describe('formatString', () => {
     test('Valid input comes out correctly', () => {
-        var holder = Coco.formatString('----');
+        var holder = Coco.formatStringForWindows('----');
         expect(holder).not.toBeNull();
     });
 
     test('Valid input comes out correctly', () => {
-        var holder = Coco.formatString('');
+        var holder = Coco.formatStringForWindows('');
         expect(holder).not.toBeNull();
     });
 });

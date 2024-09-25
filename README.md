@@ -39,5 +39,4 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 
 -   typescript types
 -   if you set the color wrong, error out
--   different colors (red, orange, yellow, etc) / unit tests for this
--   bool flag helper
+-   different colors (red, orange, yellow, etc)

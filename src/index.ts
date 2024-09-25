@@ -24,33 +24,16 @@ const sampleJson = {
     },
 };
 
+interface CocoColor {
+    name: string;
+    windowsGradient: string[];
+    macGradient: number[];
+}
+
 export class Coco {
-    static gradientShorthands = {
-        purplehaze: ['#9900ff', '#cc99ff'],
-        vaporwave: ['#0000ff', '#ff3399', '#00ffcc'],
-        oldmovie: [
-            '#F8F9FA',
-            '#E9ECEF',
-            '#DEE2E6',
-            '#CED4DA',
-            '#ADB5BD',
-            '#6C757D',
-            '#495057',
-            '#343A40',
-            '#212529',
-        ],
-        firewood: [
-            '#03071E',
-            '#370617',
-            '#6A040F',
-            '#9D0208',
-            '#D00000',
-            '#DC2F02',
-            '#E85D04',
-            '#F48C06',
-            '#FAA307',
-        ],
-        softrainbow: [
+    static softRainbowDefault: CocoColor = {
+        name: 'softrainbow',
+        windowsGradient: [
             '#c1153d',
             '#dd901c',
             '#efe52d',
@@ -58,9 +41,56 @@ export class Coco {
             '#2750f4',
             '#2914e5',
         ],
+        macGradient: [196, 202, 208, 226, 192, 159, 117],
     };
 
-    static gradient = tinygradient(Coco.gradientShorthands.softrainbow);
+    static gradientShorthands: CocoColor[] = [
+        {
+            name: 'purplehaze',
+            windowsGradient: ['#9900ff', '#cc99ff'],
+            macGradient: [],
+        },
+        {
+            name: 'vaporwave',
+            windowsGradient: ['#0000ff', '#ff3399', '#00ffcc'],
+            macGradient: [],
+        },
+        {
+            name: 'oldmovie',
+            windowsGradient: [
+                '#F8F9FA',
+                '#E9ECEF',
+                '#DEE2E6',
+                '#CED4DA',
+                '#ADB5BD',
+                '#6C757D',
+                '#495057',
+                '#343A40',
+                '#212529',
+            ],
+            macGradient: [],
+        },
+
+        {
+            name: 'firewood',
+            windowsGradient: [
+                '#03071E',
+                '#370617',
+                '#6A040F',
+                '#9D0208',
+                '#D00000',
+                '#DC2F02',
+                '#E85D04',
+                '#F48C06',
+                '#FAA307',
+            ],
+            macGradient: [],
+        },
+
+        Coco.softRainbowDefault,
+    ];
+
+    static gradient = this.softRainbowDefault!;
 
     static loren: string =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
@@ -79,42 +109,34 @@ export class Coco {
         }
     }
 
-    static getGradient(keyword: string) {
+    static getGradient(keyword: string): CocoColor {
         if (!keyword) {
-            return tinygradient(this.gradientShorthands.softrainbow);
+            return Coco.softRainbowDefault;
         }
 
-        const gradient = Object.fromEntries(
-            Object.entries(Coco.gradientShorthands).filter(([key]) =>
-                key.includes(keyword)
-            )
+        const gradient = Coco.gradientShorthands.find(
+            (obj) => obj.name === keyword
         );
 
-        const holder = Object.values(gradient);
-        return tinygradient(holder[0]);
+        if (gradient === undefined) {
+            return Coco.softRainbowDefault;
+        }
+
+        return gradient;
     }
 
     static setColor(keyword: string) {
-        if (keyword) {
-            Coco.gradient = this.getGradient(keyword);
-        } else {
-            Coco.gradient = tinygradient(Coco.gradientShorthands.softrainbow);
-        }
+        Coco.gradient = this.getGradient(keyword);
     }
 
     static log(inputString: any) {
         if (Coco.isBrowser()) {
-            console.log(this.formatString(inputString));
+            console.log(this.formatStringForWindows(inputString));
         } else if (os.platform() === 'win32') {
-            console.log('\x1B[0m', this.formatString(inputString));
+            console.log('\x1B[0m', this.formatStringForWindows(inputString));
         } else {
             console.log('\x1B[0m', this.formatStringForMac(inputString));
         }
-    }
-
-    buffer() {
-        const holder = '■▣'.repeat(50);
-        Coco.formatString(holder);
     }
 
     static formatStringForMac(input: any) {
@@ -142,7 +164,7 @@ export class Coco {
         return output;
     }
 
-    static formatString(input: any) {
+    static formatStringForWindows(input: any) {
         if (typeof input === 'object') {
             input = JSON.stringify(input, null, 2);
         }
@@ -152,7 +174,7 @@ export class Coco {
         if (input.length == 0) {
             return input;
         } else if (input.length < 3) {
-            let editedGradient = Coco.gradient.stops.slice(0, input.length);
+            let editedGradient = Coco.gradient.windowsGradient;
 
             let output = '';
 
@@ -167,12 +189,19 @@ export class Coco {
 
             return output;
         } else {
-            if (input.length < Coco.gradient.stops.length) {
-                var holder2 = Coco.gradient.stops.slice(0, input.length - 1);
+            if (
+                input.length <
+                tinygradient(Coco.gradient?.windowsGradient).stops.length
+            ) {
+                var holder2 = tinygradient(
+                    Coco.gradient?.windowsGradient
+                ).stops.slice(0, input.length - 1);
                 Coco.gradient = tinygradient(holder2);
             }
 
-            var colorArray = Coco.gradient.rgb(input.length);
+            var colorArray = tinygradient(Coco.gradient?.windowsGradient).rgb(
+                input.length
+            );
             let output = '';
 
             for (let i = 0; i < input.length; i++) {
@@ -225,6 +254,11 @@ export class Coco {
             console.log('\x1b[0;31m', str + ' => ' + eval(value));
         }
     };
+
+    buffer() {
+        const holder = '■▣'.repeat(50);
+        Coco.formatStringForWindows(holder);
+    }
 
     static start = () => {
         Coco.log('■▣'.repeat(50));
