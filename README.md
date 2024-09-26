@@ -29,6 +29,9 @@ Coco.end();
 
 ![alt text](https://github.com/GamesOfSummer/chroma-console/blob/main/TestingOutput2.png?raw=true)
 
+PS, because Mac terminals don't include working with TrueColor, the output will be a bit different
+![alt text](https://github.com/GamesOfSummer/chroma-console/blob/main/macPreview.gif?raw=true)
+
 Uses [🔗 gradient-string](https://github.com/bokub/gradient-string)
 
 Please note if you want more options, please check out [🔗 Chalk](https://github.com/chalk/chalk),[🔗 Chalk Animation](https://github.com/bokub/chalk-animation), or[🔗colorfy](https://github.com/kippisone/colorfy)
@@ -38,4 +41,4 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 ### TODO -
 
 -   typescript types
--   research a better way to global import
+-   research a better way to global import, instead of importing on every script

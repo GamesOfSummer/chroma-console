@@ -137,9 +137,7 @@ var Coco = /** @class */ (function () {
             '#2750f4',
             '#2914e5',
         ],
-        macGradient: [
-            196, 160, 202, 166, 208, 172, 226, 190, 192, 195, 159, 177, 117,
-        ],
+        macGradient: [196, 214, 226, 118, 123, 213],
     };
     Coco.gradientShorthands = [
         {
@@ -150,7 +148,7 @@ var Coco = /** @class */ (function () {
         {
             name: 'vaporwave',
             windowsGradient: ['#0000ff', '#ff3399', '#00ffcc'],
-            macGradient: [93, 99, 105, 111, 117, 123],
+            macGradient: [93, 99, 105, 111, 117, 159, 158, 153],
         },
         {
             name: 'oldmovie',
@@ -180,7 +178,7 @@ var Coco = /** @class */ (function () {
                 '#F48C06',
                 '#FAA307',
             ],
-            macGradient: [88, 94, 130, 124],
+            macGradient: [160, 124, 125, 130, 94, 178],
         },
         _a.softRainbowDefault,
         {
@@ -298,6 +296,13 @@ var Coco = /** @class */ (function () {
         _a.end();
     };
     Coco.debug = function () {
+        _a.red('RED TEXT');
+        _a.orange('ORANGE TEXT');
+        _a.yellow('YELLOW TEXT');
+        _a.green('GREEN TEXT');
+        _a.blue('BLUE TEXT');
+        _a.purple('PURPLE TEXT');
+        _a.white('WHITE TEXT');
         _a.testForCharacterLengths();
         _a.setColor('purplehaze');
         _a.testForCharacterLengths();
@@ -311,12 +316,4 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-Coco.debug();
-Coco.red('RED TEXT');
-Coco.orange('ORANGE TEXT');
-Coco.yellow('YELLOW TEXT');
-Coco.green('GREEN TEXT');
-Coco.blue('BLUE TEXT');
-Coco.purple('PURPLE TEXT');
-Coco.white('WHITE TEXT');
-Coco.log('RAINBOW TEXT');
+// Coco.debug();

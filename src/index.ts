@@ -41,9 +41,7 @@ export class Coco {
             '#2750f4',
             '#2914e5',
         ],
-        macGradient: [
-            196, 160, 202, 166, 208, 172, 226, 190, 192, 195, 159, 177, 117,
-        ],
+        macGradient: [196, 214, 226, 118, 123, 213],
     };
 
     static gradientShorthands: CocoColor[] = [
@@ -55,7 +53,7 @@ export class Coco {
         {
             name: 'vaporwave',
             windowsGradient: ['#0000ff', '#ff3399', '#00ffcc'],
-            macGradient: [93, 99, 105, 111, 117, 123],
+            macGradient: [93, 99, 105, 111, 117, 159, 158, 153],
         },
         {
             name: 'oldmovie',
@@ -86,7 +84,7 @@ export class Coco {
                 '#F48C06',
                 '#FAA307',
             ],
-            macGradient: [88, 94, 130, 124],
+            macGradient: [160, 124, 125, 130, 94, 178],
         },
 
         Coco.softRainbowDefault,
@@ -347,6 +345,14 @@ export class Coco {
     };
 
     static debug = () => {
+        Coco.red('RED TEXT');
+        Coco.orange('ORANGE TEXT');
+        Coco.yellow('YELLOW TEXT');
+        Coco.green('GREEN TEXT');
+        Coco.blue('BLUE TEXT');
+        Coco.purple('PURPLE TEXT');
+        Coco.white('WHITE TEXT');
+
         Coco.testForCharacterLengths();
 
         Coco.setColor('purplehaze');
@@ -362,15 +368,4 @@ export class Coco {
         Coco.testForCharacterLengths();
     };
 }
-
-Coco.debug();
-
-Coco.red('RED TEXT');
-Coco.orange('ORANGE TEXT');
-Coco.yellow('YELLOW TEXT');
-Coco.green('GREEN TEXT');
-Coco.blue('BLUE TEXT');
-Coco.purple('PURPLE TEXT');
-Coco.white('WHITE TEXT');
-
-Coco.log('RAINBOW TEXT');
+// Coco.debug();
