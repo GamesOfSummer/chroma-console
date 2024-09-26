@@ -160,12 +160,12 @@ var Coco = /** @class */ (function () {
         {
             name: 'purplehaze',
             windowsGradient: ['#9900ff', '#cc99ff'],
-            macGradient: [],
+            macGradient: [93, 92, 91, 99, 98, 97],
         },
         {
             name: 'vaporwave',
             windowsGradient: ['#0000ff', '#ff3399', '#00ffcc'],
-            macGradient: [],
+            macGradient: [93, 99, 105, 111, 117, 123],
         },
         {
             name: 'oldmovie',
@@ -180,7 +180,7 @@ var Coco = /** @class */ (function () {
                 '#343A40',
                 '#212529',
             ],
-            macGradient: [],
+            macGradient: [255, 254, 253, 252, 251, 250],
         },
         {
             name: 'firewood',
@@ -195,7 +195,7 @@ var Coco = /** @class */ (function () {
                 '#F48C06',
                 '#FAA307',
             ],
-            macGradient: [],
+            macGradient: [88, 94, 130, 124],
         },
         _a.softRainbowDefault,
     ];
@@ -255,15 +255,7 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-//Coco.log(sampleJson);
-//Coco.debug();
-Coco.setColor('purplehaze');
-Coco.testForCharacterLengths();
-Coco.setColor('vaporwave');
-Coco.testForCharacterLengths();
-Coco.setColor('oldmovie');
-Coco.testForCharacterLengths();
-Coco.setColor('firewood');
-Coco.testForCharacterLengths();
+Coco.log(sampleJson);
+Coco.debug();
 //Coco.consoleRedOrGreen('0');
 //Coco.consoleRedOrGreen('1');

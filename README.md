@@ -38,5 +38,5 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 ### TODO -
 
 -   typescript types
--   if you set the color wrong, error out
 -   different colors (red, orange, yellow, etc)
+-   research a better way to global import
