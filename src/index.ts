@@ -90,6 +90,41 @@ export class Coco {
         },
 
         Coco.softRainbowDefault,
+        {
+            name: 'red',
+            windowsGradient: ['#f13f29', '#f13f29'],
+            macGradient: [196],
+        },
+        {
+            name: 'orange',
+            windowsGradient: ['#f6b954', '#f6b954'],
+            macGradient: [214],
+        },
+        {
+            name: 'yellow',
+            windowsGradient: ['#f9fc39 ', '#f9fc39 '],
+            macGradient: [226],
+        },
+        {
+            name: 'green',
+            windowsGradient: ['#4fe71b', '#4fe71b'],
+            macGradient: [118],
+        },
+        {
+            name: 'blue',
+            windowsGradient: ['#39c7fc', '#39c7fc'],
+            macGradient: [159],
+        },
+        {
+            name: 'purple',
+            windowsGradient: ['#fc39f6', '#fc39f6'],
+            macGradient: [207],
+        },
+        {
+            name: 'white',
+            windowsGradient: ['#ffffff', '#ffffff'],
+            macGradient: [15],
+        },
     ];
 
     static gradient = this.softRainbowDefault!;
@@ -219,32 +254,53 @@ export class Coco {
         }
     }
 
-    consoleRed = (value: string) => {
-        console.log('\x1b[0;31m', value);
+    static red = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('red');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
-    consoleOrange = (value: string) => {
-        console.log('\x1b[38;2;255;100;0m', value);
+    static orange = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('orange');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
-    consoleYellow = (value: string) => {
-        console.log('\x1b[0;33m', value);
+    static yellow = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('yellow');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
-    consoleGreen = (value: string) => {
-        console.log('\x1b[0;32m', value);
+    static green = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('green');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
-    static consoleBlue = (value: string) => {
-        console.log('\x1b[0;36m', value);
+    static blue = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('blue');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
-    static consolePurple = (value: string) => {
-        console.log('\x1b[38;2;179;124;255m', value);
+    static purple = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('purple');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
-    consoleWhite = (value: string) => {
-        console.log('\x1b[0m', value);
+    static white = (value: string) => {
+        const currentGradient = Coco.gradient;
+        Coco.setColor('white');
+        Coco.log(value);
+        Coco.setColor(currentGradient.name);
     };
 
     static consoleRedOrGreen = (value: any) => {
@@ -307,8 +363,14 @@ export class Coco {
     };
 }
 
-Coco.log(sampleJson);
 Coco.debug();
 
-//Coco.consoleRedOrGreen('0');
-//Coco.consoleRedOrGreen('1');
+Coco.red('RED TEXT');
+Coco.orange('ORANGE TEXT');
+Coco.yellow('YELLOW TEXT');
+Coco.green('GREEN TEXT');
+Coco.blue('BLUE TEXT');
+Coco.purple('PURPLE TEXT');
+Coco.white('WHITE TEXT');
+
+Coco.log('RAINBOW TEXT');

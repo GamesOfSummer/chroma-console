@@ -27,21 +27,6 @@ var sampleJson = {
 };
 var Coco = /** @class */ (function () {
     function Coco() {
-        this.consoleRed = function (value) {
-            console.log('\x1b[0;31m', value);
-        };
-        this.consoleOrange = function (value) {
-            console.log('\x1b[38;2;255;100;0m', value);
-        };
-        this.consoleYellow = function (value) {
-            console.log('\x1b[0;33m', value);
-        };
-        this.consoleGreen = function (value) {
-            console.log('\x1b[0;32m', value);
-        };
-        this.consoleWhite = function (value) {
-            console.log('\x1b[0m', value);
-        };
     }
     Coco.isBrowser = function () {
         try {
@@ -198,14 +183,85 @@ var Coco = /** @class */ (function () {
             macGradient: [88, 94, 130, 124],
         },
         _a.softRainbowDefault,
+        {
+            name: 'red',
+            windowsGradient: ['#f13f29', '#f13f29'],
+            macGradient: [196],
+        },
+        {
+            name: 'orange',
+            windowsGradient: ['#f6b954', '#f6b954'],
+            macGradient: [214],
+        },
+        {
+            name: 'yellow',
+            windowsGradient: ['#f9fc39 ', '#f9fc39 '],
+            macGradient: [226],
+        },
+        {
+            name: 'green',
+            windowsGradient: ['#4fe71b', '#4fe71b'],
+            macGradient: [118],
+        },
+        {
+            name: 'blue',
+            windowsGradient: ['#39c7fc', '#39c7fc'],
+            macGradient: [159],
+        },
+        {
+            name: 'purple',
+            windowsGradient: ['#fc39f6', '#fc39f6'],
+            macGradient: [207],
+        },
+        {
+            name: 'white',
+            windowsGradient: ['#ffffff', '#ffffff'],
+            macGradient: [15],
+        },
     ];
     Coco.gradient = _a.softRainbowDefault;
     Coco.lorenLipsumString = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
-    Coco.consoleBlue = function (value) {
-        console.log('\x1b[0;36m', value);
+    Coco.red = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('red');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
     };
-    Coco.consolePurple = function (value) {
-        console.log('\x1b[38;2;179;124;255m', value);
+    Coco.orange = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('orange');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
+    };
+    Coco.yellow = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('yellow');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
+    };
+    Coco.green = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('green');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
+    };
+    Coco.blue = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('blue');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
+    };
+    Coco.purple = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('purple');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
+    };
+    Coco.white = function (value) {
+        var currentGradient = _a.gradient;
+        _a.setColor('white');
+        _a.log(value);
+        _a.setColor(currentGradient.name);
     };
     Coco.consoleRedOrGreen = function (value) {
         var str = value.replace('!', '').replace('!', '') + '';
@@ -255,7 +311,12 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-Coco.log(sampleJson);
 Coco.debug();
-//Coco.consoleRedOrGreen('0');
-//Coco.consoleRedOrGreen('1');
+Coco.red('RED TEXT');
+Coco.orange('ORANGE TEXT');
+Coco.yellow('YELLOW TEXT');
+Coco.green('GREEN TEXT');
+Coco.blue('BLUE TEXT');
+Coco.purple('PURPLE TEXT');
+Coco.white('WHITE TEXT');
+Coco.log('RAINBOW TEXT');

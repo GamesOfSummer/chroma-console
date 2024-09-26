@@ -38,5 +38,4 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 ### TODO -
 
 -   typescript types
--   different colors (red, orange, yellow, etc)
 -   research a better way to global import
