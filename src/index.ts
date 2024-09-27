@@ -209,13 +209,12 @@ export class Coco {
         if (input.length == 0) {
             return input;
         } else if (input.length < 3) {
-            let editedGradient = Coco.gradient.windowsGradient;
-
             let output = '';
 
             for (let i = 0; i < input.length; i++) {
-                // @ts-ignore
-                var { _r, _g, _b } = editedGradient[i].color;
+                var { stops } = tinygradient(Coco.gradient.windowsGradient);
+                var { _r, _g, _b } = stops[i].color;
+
                 output += `\x1b[38;2;${Math.round(_r)};${Math.round(
                     _g
                 )};${Math.round(_b)}m${input[i]}`;
@@ -228,13 +227,14 @@ export class Coco {
                 input.length <
                 tinygradient(Coco.gradient?.windowsGradient).stops.length
             ) {
-                var holder2 = tinygradient(
+                var stops = tinygradient(
                     Coco.gradient?.windowsGradient
                 ).stops.slice(0, input.length - 1);
-                Coco.gradient = tinygradient(holder2);
+
+                Coco.gradient.windowsGradient = stops;
             }
 
-            var colorArray = tinygradient(Coco.gradient?.windowsGradient).rgb(
+            var colorArray = tinygradient(Coco.gradient.windowsGradient).rgb(
                 input.length
             );
             let output = '';
@@ -346,6 +346,9 @@ export class Coco {
 
     static debug = () => {
         Coco.red('RED TEXT');
+        Coco.red('A');
+        Coco.red('AA');
+        Coco.red('AAA');
         Coco.orange('ORANGE TEXT');
         Coco.yellow('YELLOW TEXT');
         Coco.green('GREEN TEXT');
@@ -368,4 +371,5 @@ export class Coco {
         Coco.testForCharacterLengths();
     };
 }
-// Coco.debug();
+
+//Coco.debug();

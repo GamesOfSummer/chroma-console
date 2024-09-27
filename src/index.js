@@ -84,7 +84,7 @@ var Coco = /** @class */ (function () {
         return outputString;
     };
     Coco.formatStringForWindows = function (input) {
-        var _c, _d, _e;
+        var _c, _d;
         if (typeof input === 'object') {
             input = JSON.stringify(input, null, 2);
         }
@@ -93,11 +93,10 @@ var Coco = /** @class */ (function () {
             return input;
         }
         else if (input.length < 3) {
-            var editedGradient = _a.gradient.windowsGradient;
             var output = '';
             for (var i = 0; i < input.length; i++) {
-                // @ts-ignore
-                var _f = editedGradient[i].color, _r = _f._r, _g = _f._g, _b = _f._b;
+                var stops = tinygradient(_a.gradient.windowsGradient).stops;
+                var _e = stops[i].color, _r = _e._r, _g = _e._g, _b = _e._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
             output += '\x1b[0m';
@@ -106,14 +105,14 @@ var Coco = /** @class */ (function () {
         else {
             if (input.length <
                 tinygradient((_c = _a.gradient) === null || _c === void 0 ? void 0 : _c.windowsGradient).stops.length) {
-                var holder2 = tinygradient((_d = _a.gradient) === null || _d === void 0 ? void 0 : _d.windowsGradient).stops.slice(0, input.length - 1);
-                _a.gradient = tinygradient(holder2);
+                var stops = tinygradient((_d = _a.gradient) === null || _d === void 0 ? void 0 : _d.windowsGradient).stops.slice(0, input.length - 1);
+                _a.gradient.windowsGradient = stops;
             }
-            var colorArray = tinygradient((_e = _a.gradient) === null || _e === void 0 ? void 0 : _e.windowsGradient).rgb(input.length);
+            var colorArray = tinygradient(_a.gradient.windowsGradient).rgb(input.length);
             var output = '';
             for (var i = 0; i < input.length; i++) {
                 // @ts-ignore
-                var _h = colorArray[i], _r = _h._r, _g = _h._g, _b = _h._b;
+                var _f = colorArray[i], _r = _f._r, _g = _f._g, _b = _f._b;
                 output += "\u001B[38;2;".concat(Math.round(_r), ";").concat(Math.round(_g), ";").concat(Math.round(_b), "m").concat(input[i]);
             }
             output += '\x1B[0m';
@@ -297,6 +296,9 @@ var Coco = /** @class */ (function () {
     };
     Coco.debug = function () {
         _a.red('RED TEXT');
+        _a.red('A');
+        _a.red('AA');
+        _a.red('AAA');
         _a.orange('ORANGE TEXT');
         _a.yellow('YELLOW TEXT');
         _a.green('GREEN TEXT');
@@ -316,4 +318,4 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-// Coco.debug();
+//Coco.debug();
