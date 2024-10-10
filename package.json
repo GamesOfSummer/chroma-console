@@ -1,7 +1,7 @@
 {
     "name": "chroma-console",
     "description": "Coco, the whimsical debug output package",
-    "version": "1.0.34",
+    "version": "1.0.35",
     "license": "MIT",
     "author": "Summer Tomaseski",
     "main": "src/index.js",

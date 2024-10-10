@@ -269,6 +269,19 @@ var Coco = /** @class */ (function () {
             console.log('\x1b[0;31m', str + ' => ' + eval(value));
         }
     };
+    Coco.validateFxn = function (output, answer) {
+        if (Array.isArray(output) &&
+            Array.isArray(answer) &&
+            JSON.stringify(output) === JSON.stringify(answer)) {
+            console.log('\x1b[32m', '✅ CORRECT ARRAYS :: ' + output + ' === ' + answer);
+        }
+        else if (output === answer) {
+            console.log('\x1b[32m', '✅ CORRECT :: ' + output + ' === ' + answer);
+        }
+        else {
+            console.log('\x1b[31m', '⭕ WRONG :: Output was ' + output + ' - expected ' + answer);
+        }
+    };
     Coco.start = function () {
         console.log('');
         _a.log('■▣'.repeat(50));
@@ -314,8 +327,16 @@ var Coco = /** @class */ (function () {
         _a.testForCharacterLengths();
         _a.setColor('firewood');
         _a.testForCharacterLengths();
+        _a.validateFxn('this will match', 'this will match');
+        _a.validateFxn('this will NOT match', 'this will match');
+        _a.validateFxn([1, 2, 3], [1, 2, 3]);
+        _a.validateFxn([1, 2], [1, 2, 3]);
+        _a.validateFxn(Math.round(4.6), 5);
+        _a.validateFxn(Math.round(4.6), 4);
+        _a.validateFxn(['B', 'O', 'A', 'M'].sort(), ['A', 'B', 'M', 'O']);
+        _a.validateFxn(['B', 'O', 'A', 'M'].sort(), ['A', 'B', 'M', 'X']);
     };
     return Coco;
 }());
 exports.Coco = Coco;
-//Coco.debug();
+Coco.debug();

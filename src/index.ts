@@ -311,6 +311,29 @@ export class Coco {
         }
     };
 
+    static validateFxn = (output: any, answer: any) => {
+        if (
+            Array.isArray(output) &&
+            Array.isArray(answer) &&
+            JSON.stringify(output) === JSON.stringify(answer)
+        ) {
+            console.log(
+                '\x1b[32m',
+                '✅ CORRECT ARRAYS :: ' + output + ' === ' + answer
+            );
+        } else if (output === answer) {
+            console.log(
+                '\x1b[32m',
+                '✅ CORRECT :: ' + output + ' === ' + answer
+            );
+        } else {
+            console.log(
+                '\x1b[31m',
+                '⭕ WRONG :: Output was ' + output + ' - expected ' + answer
+            );
+        }
+    };
+
     buffer() {
         const holder = '■▣'.repeat(50);
         Coco.formatStringForWindows(holder);
@@ -369,6 +392,15 @@ export class Coco {
 
         Coco.setColor('firewood');
         Coco.testForCharacterLengths();
+
+        Coco.validateFxn('this will match', 'this will match');
+        Coco.validateFxn('this will NOT match', 'this will match');
+        Coco.validateFxn([1, 2, 3], [1, 2, 3]);
+        Coco.validateFxn([1, 2], [1, 2, 3]);
+        Coco.validateFxn(Math.round(4.6), 5);
+        Coco.validateFxn(Math.round(4.6), 4);
+        Coco.validateFxn(['B', 'O', 'A', 'M'].sort(), ['A', 'B', 'M', 'O']);
+        Coco.validateFxn(['B', 'O', 'A', 'M'].sort(), ['A', 'B', 'M', 'X']);
     };
 }
 
