@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Coco = void 0;
 var tinygradient = require('tinygradient');
-var os = require('os');
 var sampleJson = {
     glossary: {
         title: 'example glossary',
@@ -33,7 +32,7 @@ var Coco = /** @class */ (function () {
             if (window === undefined || !window) {
                 return false;
             }
-            return !!window;
+            return true;
         }
         catch (_c) {
             return false;
@@ -53,14 +52,16 @@ var Coco = /** @class */ (function () {
         _a.gradient = this.getGradient(keyword);
     };
     Coco.log = function (inputString) {
-        if (_a.isBrowser()) {
-            console.log(this.formatStringForWindows(inputString));
-        }
-        else if (os.platform() === 'win32') {
-            console.log('\x1B[0m', this.formatStringForWindows(inputString));
+        if (process.platform !== 'win32') {
+            console.log('\x1B[0m', this.formatStringForMac(inputString));
         }
         else {
-            console.log('\x1B[0m', this.formatStringForMac(inputString));
+            if (_a.isBrowser()) {
+                console.log(this.formatStringForWindows(inputString));
+            }
+            else {
+                console.log('\x1B[0m', this.formatStringForWindows(inputString));
+            }
         }
     };
     Coco.formatStringForMac = function (input) {
@@ -339,4 +340,5 @@ var Coco = /** @class */ (function () {
     return Coco;
 }());
 exports.Coco = Coco;
-Coco.debug();
+//Coco.debug();
+//console.log(process.platform);

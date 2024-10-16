@@ -1,5 +1,4 @@
 var tinygradient = require('tinygradient');
-var os = require('os');
 
 const sampleJson = {
     glossary: {
@@ -138,7 +137,7 @@ export class Coco {
                 return false;
             }
 
-            return !!window;
+            return true;
         } catch {
             return false;
         }
@@ -165,12 +164,17 @@ export class Coco {
     }
 
     static log(inputString: any) {
-        if (Coco.isBrowser()) {
-            console.log(this.formatStringForWindows(inputString));
-        } else if (os.platform() === 'win32') {
-            console.log('\x1B[0m', this.formatStringForWindows(inputString));
-        } else {
+        if (process.platform !== 'win32') {
             console.log('\x1B[0m', this.formatStringForMac(inputString));
+        } else {
+            if (Coco.isBrowser()) {
+                console.log(this.formatStringForWindows(inputString));
+            } else {
+                console.log(
+                    '\x1B[0m',
+                    this.formatStringForWindows(inputString)
+                );
+            }
         }
     }
 
@@ -405,3 +409,4 @@ export class Coco {
 }
 
 //Coco.debug();
+//console.log(process.platform);

@@ -32,6 +32,33 @@ Coco.end();
 PS, because Mac terminals don't include working with TrueColor, the output will be a bit different
 ![alt text](https://github.com/GamesOfSummer/chroma-console/blob/main/macPreview.gif?raw=true)
 
+### Other Helpers
+
+If you just want to set the text to a color, use these helpers. The next time CoCo outputs a 'log', it will use the default color.
+
+```
+Coco.red('RED TEXT');
+Coco.orange('ORANGE TEXT');
+Coco.yellow('YELLOW TEXT');
+Coco.green('GREEN TEXT');
+Coco.blue('BLUE TEXT');
+Coco.purple('PURPLE TEXT');
+Coco.white('WHITE TEXT');
+```
+
+If you don't like the rainbow, you can set the color to something else!
+
+```
+
+Coco.setColor('oldmovie');
+Coco.setColor('vaporwave');
+Coco.setColor('purplehaze');
+Coco.setColor('firewood');
+
+```
+
+### Other Other
+
 Uses [🔗 gradient-string](https://github.com/bokub/gradient-string)
 
 Please note if you want more options, please check out [🔗 Chalk](https://github.com/chalk/chalk),[🔗 Chalk Animation](https://github.com/bokub/chalk-animation), or[🔗colorfy](https://github.com/kippisone/colorfy)
@@ -42,3 +69,7 @@ NPM Package Link - https://www.npmjs.com/package/chroma-console
 
 -   typescript types
 -   research a better way to global import, instead of importing on every script
+
+```
+
+```
